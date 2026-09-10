@@ -75,18 +75,42 @@ Acceptance tests (property-based, fast-check):
 - odd running runs on a non-over-ending legal ball toggles the striker.
 - the over-end swap happens after every `ballsPerOver` legal balls.
 
-## Calibration harness (skeleton)
+## Calibration harness
 
 `calibration/cricsheet.ts` parses the Cricsheet JSON match format and reduces an innings to
-aggregate facts (runs, wickets, legal balls, boundaries, extras). `calibration/aggregate.ts`
-combines matches into distributions used in Phase 1 to assert engine realism against real
-Test cricket.
+aggregate facts (runs, wickets, legal balls, deliveries, dot balls, boundaries, extras).
+`calibration/aggregate.ts` combines matches into distributions. `tools/calibration` compares
+real data against the simulator.
 
 Acceptance tests:
 - parses a fixture match and reproduces known innings totals.
 - rejects malformed input via narrowing (no `any`).
 
+### Targets (Cricsheet men's full-member, since 2018)
+
+| Format | Runs/inn | Wkts/inn | RPO | Balls/wkt | Dot | Boundary |
+| --- | --- | --- | --- | --- | --- | --- |
+| Test | 264.4 | 8.83 | 3.34 | 53.8 | 0.725 | 0.065 |
+| ODI | 241.0 | 7.34 | 5.60 | 35.2 | 0.509 | 0.102 |
+| T20 | 154.2 | 6.29 | 8.43 | 17.5 | 0.360 | 0.171 |
+
+`runsPerInnings` is expected to run high until declarations, chases and follow-ons are added
+(Phase 4); per-ball rates (RPO, balls/wicket, dot, boundary) are the Phase 1 acceptance gate
+and are asserted in `test/calibration-sim.test.ts`.
+
+## Delivery outcome model
+
+`outcome.ts` maps a delivery context (format, batter skill/aggression/style, bowler
+skill/aggression) to a sampled `ResolvedDelivery`:
+
+1. With probability `extraRate` a wide or no-ball occurs (no legal ball).
+2. Otherwise a per-format baseline distribution over `{0,1,2,3,4,6, wicket}` is adjusted:
+   - `wicketFactor` from skill difference, aggression (pressure) and batting style;
+   - `runBoost` on all scoring weight from skill and pressure;
+   - `boundaryBoost` on fours and sixes from style and pressure.
+3. The distribution is normalised against the wicket probability and sampled.
+
 ## Out of scope (later phases)
 
-Delivery outcome probabilities, AI captaincy, conditions/weather, DLS, multi-day scheduling,
+Multi-day scheduling, toss/declarations/follow-on/DLS, AI captaincy, conditions, weather,
 career/world state, narrative. Each gets its own spec.

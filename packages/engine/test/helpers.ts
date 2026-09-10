@@ -29,15 +29,10 @@ export function makePlayer(
 }
 
 export function makeSide(prefix: string): { order: Player[]; attack: Player[] } {
-  const order = Array.from({ length: 11 }, (_, i) =>
-    makePlayer(`${prefix}${i + 1}`, 38 - i * 0.8, 0),
+  const batting = [45, 42, 40, 38, 36, 34, 30, 26, 18, 12, 8];
+  const order = batting.map((skill, index) => makePlayer(`${prefix}${index + 1}`, skill, 0));
+  const attack = [46, 43, 40, 37, 30].map((skill, index) =>
+    makePlayer(`${prefix}B${index + 1}`, 15, skill),
   );
-  const attack = [
-    makePlayer(`${prefix}B1`, 15, 62),
-    makePlayer(`${prefix}B2`, 15, 58),
-    makePlayer(`${prefix}B3`, 15, 54),
-    makePlayer(`${prefix}B4`, 15, 50),
-    makePlayer(`${prefix}B5`, 15, 45),
-  ];
   return { order, attack };
 }

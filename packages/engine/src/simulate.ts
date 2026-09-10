@@ -11,9 +11,19 @@ export interface SimulateInningsOptions {
   bowlingAttack: Player[];
 }
 
+export interface SimulatedInningsMetrics {
+  deliveries: number;
+  dotBalls: number;
+  fours: number;
+  sixes: number;
+  wides: number;
+  noBalls: number;
+}
+
 export interface SimulatedInnings {
   state: InningsState;
   bowlers: BowlerInnings[];
+  metrics: SimulatedInningsMetrics;
 }
 
 function maxBowlerOvers(spec: FormatSpec): number {
@@ -66,6 +76,14 @@ export function simulateInnings(random: Random, options: SimulateInningsOptions)
   const bowlerStats = new Map<string, BowlerInnings>();
   const bowlerOvers = new Map<string, number>();
   const bowlerMax = maxBowlerOvers(spec);
+  const metrics: SimulatedInningsMetrics = {
+    deliveries: 0,
+    dotBalls: 0,
+    fours: 0,
+    sixes: 0,
+    wides: 0,
+    noBalls: 0,
+  };
   let previousBowlerId: string | null = null;
 
   while (!isInningsComplete(state, spec)) {
@@ -124,6 +142,16 @@ export function simulateInnings(random: Random, options: SimulateInningsOptions)
       }
       if (delivery.wicket !== null && delivery.wicket.kind !== 'run-out') stats.wickets += 1;
 
+      metrics.deliveries += 1;
+      if (extra?.kind === 'wide') metrics.wides += 1;
+      if (extra?.kind === 'noball') metrics.noBalls += 1;
+      if (delivery.runsOffBat === 4) metrics.fours += 1;
+      if (delivery.runsOffBat === 6) metrics.sixes += 1;
+      const dotRuns =
+        delivery.runsOffBat +
+        (extra !== null && (extra.kind === 'bye' || extra.kind === 'legbye') ? extra.runs : 0);
+      if (isLegal && dotRuns === 0) metrics.dotBalls += 1;
+
       state = applyDelivery(state, delivery, spec.ballsPerOver);
     }
 
@@ -131,5 +159,5 @@ export function simulateInnings(random: Random, options: SimulateInningsOptions)
     bowlerOvers.set(bowler.id, (bowlerOvers.get(bowler.id) ?? 0) + 1);
   }
 
-  return { state, bowlers: [...bowlerStats.values()] };
+  return { state, bowlers: [...bowlerStats.values()], metrics };
 }

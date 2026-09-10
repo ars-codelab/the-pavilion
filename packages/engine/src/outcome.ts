@@ -32,38 +32,38 @@ interface OutcomeTable {
 const BASE_TABLES: Record<FormatId, OutcomeTable> = {
   test: {
     extraRate: 0.025,
-    wicket: 0.016,
+    wicket: 0.0186,
     runs: [
-      { runs: 0, p: 0.726 },
-      { runs: 1, p: 0.14 },
-      { runs: 2, p: 0.05 },
-      { runs: 3, p: 0.01 },
-      { runs: 4, p: 0.05 },
-      { runs: 6, p: 0.008 },
+      { runs: 0, p: 0.7064 },
+      { runs: 1, p: 0.1413 },
+      { runs: 2, p: 0.0607 },
+      { runs: 3, p: 0.008 },
+      { runs: 4, p: 0.06 },
+      { runs: 6, p: 0.005 },
     ],
   },
   odi: {
     extraRate: 0.035,
-    wicket: 0.025,
+    wicket: 0.028,
     runs: [
-      { runs: 0, p: 0.49 },
+      { runs: 0, p: 0.481 },
       { runs: 1, p: 0.3 },
       { runs: 2, p: 0.08 },
       { runs: 3, p: 0.01 },
-      { runs: 4, p: 0.075 },
-      { runs: 6, p: 0.02 },
+      { runs: 4, p: 0.082 },
+      { runs: 6, p: 0.019 },
     ],
   },
   t20: {
     extraRate: 0.04,
-    wicket: 0.04,
+    wicket: 0.0571,
     runs: [
-      { runs: 0, p: 0.41 },
-      { runs: 1, p: 0.27 },
-      { runs: 2, p: 0.07 },
+      { runs: 0, p: 0.303 },
+      { runs: 1, p: 0.343 },
+      { runs: 2, p: 0.116 },
       { runs: 3, p: 0.01 },
-      { runs: 4, p: 0.14 },
-      { runs: 6, p: 0.06 },
+      { runs: 4, p: 0.113 },
+      { runs: 6, p: 0.058 },
     ],
   },
 };
@@ -116,12 +116,12 @@ export function sampleDelivery(random: Random, context: DeliveryContext): Resolv
     clamp(1 - skillDiff * 0.8, 0.25, 3) * (0.7 + pressure * 0.6) * STYLE_WICKET[batter.style];
   const wicket = clamp(table.wicket * wicketFactor, 0.002, 0.35);
 
-  const runBoost =
-    clamp(1 + skillDiff * 0.6, 0.4, 2) * (0.8 + pressure * 0.5) * STYLE_BOUNDARY[batter.style];
+  const runBoost = clamp(1 + skillDiff * 0.6, 0.4, 2) * (0.75 + pressure * 0.5);
+  const boundaryBoost = STYLE_BOUNDARY[batter.style] * (0.7 + pressure * 0.6);
 
   const adjusted = table.runs.map((entry) => ({
     value: entry.runs,
-    weight: entry.runs === 0 ? entry.p : entry.p * (entry.runs >= 4 ? runBoost : runBoost * 0.6),
+    weight: entry.runs === 0 ? entry.p : entry.p * runBoost * (entry.runs >= 4 ? boundaryBoost : 1),
   }));
 
   const runWeight = adjusted.reduce((sum, entry) => sum + entry.weight, 0);

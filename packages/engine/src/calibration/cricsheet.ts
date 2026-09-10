@@ -3,6 +3,8 @@ export interface CricsheetInnings {
   runs: number;
   wickets: number;
   legalBalls: number;
+  deliveries: number;
+  dotBalls: number;
   fours: number;
   sixes: number;
   wides: number;
@@ -13,6 +15,8 @@ export interface CricsheetInnings {
 
 export interface CricsheetMatch {
   matchType: string;
+  gender: string;
+  date: string | null;
   teams: [string, string];
   innings: CricsheetInnings[];
 }
@@ -46,6 +50,8 @@ function parseInnings(value: unknown): CricsheetInnings {
   let runs = 0;
   let wickets = 0;
   let legalBalls = 0;
+  let deliveries = 0;
+  let dotBalls = 0;
   let fours = 0;
   let sixes = 0;
   let wides = 0;
@@ -61,7 +67,9 @@ function parseInnings(value: unknown): CricsheetInnings {
       if (delivery === null) continue;
       const runRecord = asRecord(delivery.runs);
       const batterRuns = numberField(runRecord, 'batter');
-      runs += numberField(runRecord, 'total');
+      const totalRuns = numberField(runRecord, 'total');
+      runs += totalRuns;
+      deliveries += 1;
       if (batterRuns === 4) fours += 1;
       if (batterRuns === 6) sixes += 1;
 
@@ -72,7 +80,10 @@ function parseInnings(value: unknown): CricsheetInnings {
       noBalls += nb;
       byes += numberField(extraRecord, 'byes');
       legByes += numberField(extraRecord, 'legbyes');
-      if (w === 0 && nb === 0) legalBalls += 1;
+      if (w === 0 && nb === 0) {
+        legalBalls += 1;
+        if (totalRuns === 0) dotBalls += 1;
+      }
 
       wickets += asArray(delivery.wickets).length;
     }
@@ -83,6 +94,8 @@ function parseInnings(value: unknown): CricsheetInnings {
     runs,
     wickets,
     legalBalls,
+    deliveries,
+    dotBalls,
     fours,
     sixes,
     wides,
@@ -110,8 +123,13 @@ export function parseCricsheetMatch(input: unknown): CricsheetMatch {
     throw new Error('cricsheet: info.teams must contain at least two names');
   }
 
+  const dates = asArray(info.dates).map(asString);
+  const firstDate = dates[0];
+
   return {
     matchType: asString(info.match_type) ?? 'Unknown',
+    gender: asString(info.gender) ?? 'unknown',
+    date: firstDate ?? null,
     teams: [firstTeam, secondTeam],
     innings: asArray(root.innings).map(parseInnings),
   };
