@@ -18,12 +18,14 @@ import {
   tick,
 } from '@pavilion/presentation';
 import type { Scene } from '@pavilion/presentation';
+import { simulateSeason } from '@pavilion/world';
+import type { SeasonResult, SeasonTeam } from '@pavilion/world';
 import { deleteSave, listSaves, putSave } from './storage';
 import type { SaveRecord } from './storage';
 
 const FORMAT_IDS: FormatId[] = ['test', 'odi', 't20'];
 
-type Mode = 'match' | 'series';
+type Mode = 'match' | 'series' | 'league';
 
 interface MatchState {
   result: MatchResult;
@@ -41,6 +43,7 @@ interface SavePayload {
   seriesLength: number;
   match: MatchState | null;
   series: SeriesResult | null;
+  season?: SeasonResult | null;
 }
 
 function overs(balls: number): string {
@@ -119,6 +122,7 @@ export function App() {
   const [seriesLength, setSeriesLength] = useState(3);
   const [match, setMatch] = useState<MatchState | null>(null);
   const [series, setSeries] = useState<SeriesResult | null>(null);
+  const [season, setSeason] = useState<SeasonResult | null>(null);
   const [scenes, setScenes] = useState<Scene[]>([]);
   const [saves, setSaves] = useState<SaveRecord[]>([]);
 
@@ -133,10 +137,27 @@ export function App() {
   const venue = venues.find((entry) => entry.id === venueId) ?? venues[0];
 
   function play() {
+    const random = new Random(seed);
+    if (mode === 'league') {
+      const seasonTeams: SeasonTeam[] = teams.map((entry) => ({
+        team: engineTeam(entry.id),
+        rating: { id: entry.id, rating: 1500, matches: 0 },
+      }));
+      const result = simulateSeason(random, {
+        spec: FORMATS[format],
+        teams: seasonTeams,
+        doubleRound: true,
+        conditionsForFixture: () => ({ venue }),
+      });
+      setSeason(result);
+      setMatch(null);
+      setSeries(null);
+      setScenes([]);
+      return;
+    }
     if (homeId === awayId) return;
     const home = engineTeam(homeId);
     const away = engineTeam(awayId);
-    const random = new Random(seed);
     if (mode === 'match') {
       const result = simulateMatch(random, {
         spec: FORMATS[format],
@@ -146,6 +167,7 @@ export function App() {
       });
       setMatch({ result, home, away });
       setSeries(null);
+      setSeason(null);
       setScenes(buildScenes(random, result, home, away, venue?.name ?? 'the ground'));
     } else {
       const result = simulateSeries(random, {
@@ -157,6 +179,7 @@ export function App() {
       });
       setSeries(result);
       setMatch(null);
+      setSeason(null);
       setScenes([]);
     }
   }
@@ -185,13 +208,16 @@ export function App() {
       seriesLength,
       match,
       series,
+      season,
     };
     const label =
       match !== null
         ? `${match.home.name} v ${match.away.name}`
         : series !== null
           ? `${series.home.name} v ${series.away.name} series`
-          : 'Pavilion game';
+          : season !== null
+            ? 'League season'
+            : 'Pavilion game';
     await putSave({ key, label, savedAt: Date.now(), payload });
     await refreshSaves();
   }
@@ -207,6 +233,7 @@ export function App() {
     setSeriesLength(payload.seriesLength);
     setMatch(payload.match);
     setSeries(payload.series);
+    setSeason(payload.season ?? null);
   }
 
   async function remove(key: string) {
@@ -214,7 +241,7 @@ export function App() {
     await refreshSaves();
   }
 
-  const hasResult = match !== null || series !== null;
+  const hasResult = match !== null || series !== null || season !== null;
   const currentPlayers = useMemo(() => {
     if (match !== null) return playersFor(match.home, match.away);
     if (series !== null) return playersFor(series.home, series.away);
@@ -234,7 +261,7 @@ export function App() {
 
         <section className="border-2 border-pavilion-line bg-pavilion-panel p-4">
           <div className="mb-3 flex gap-2">
-            {(['match', 'series'] as Mode[]).map((value) => (
+            {(['match', 'series', 'league'] as Mode[]).map((value) => (
               <button
                 key={value}
                 onClick={() => setMode(value)}
@@ -331,14 +358,16 @@ export function App() {
           <div className="mt-4 flex flex-col gap-2 sm:flex-row">
             <button
               onClick={play}
-              disabled={homeId === awayId}
+              disabled={mode !== 'league' && homeId === awayId}
               className="flex-1 border-2 border-pavilion-accent bg-pavilion-accent px-4 py-3 text-sm font-bold uppercase tracking-[0.2em] text-pavilion-bg disabled:opacity-40"
             >
-              {homeId === awayId
+              {mode !== 'league' && homeId === awayId
                 ? 'Choose two different sides'
                 : mode === 'match'
                   ? 'Play match'
-                  : 'Play series'}
+                  : mode === 'series'
+                    ? 'Play series'
+                    : 'Play league'}
             </button>
             <button
               onClick={() => void save()}
@@ -365,6 +394,7 @@ export function App() {
               />
             ))}
         {series !== null && <SeriesView series={series} nameOf={nameOf} />}
+        {season !== null && <LeagueView season={season} />}
 
         <SavesPanel saves={saves} onLoad={loadRecord} onDelete={(key) => void remove(key)} />
 
@@ -555,6 +585,48 @@ function InningsPanel(props: {
         </tbody>
       </table>
     </div>
+  );
+}
+
+function LeagueView({ season }: { season: SeasonResult }) {
+  const champion = season.table.find((row) => row.teamId === season.championId);
+  return (
+    <section className="flex flex-col gap-4">
+      <div className="border-2 border-pavilion-line bg-pavilion-panel px-4 py-3">
+        <div className="text-sm font-bold text-pavilion-accent">
+          {champion !== undefined ? `${champion.name} win the league` : 'League complete'}
+        </div>
+        <div className="mt-1 text-xs text-pavilion-dim">{season.matches.length} matches played</div>
+      </div>
+      <div className="border-2 border-pavilion-line bg-pavilion-panel p-4 text-xs">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="text-pavilion-dim">
+              <th className="py-1 text-left font-normal">#</th>
+              <th className="py-1 text-left font-normal">Team</th>
+              <th className="py-1 text-right font-normal">P</th>
+              <th className="py-1 text-right font-normal">W</th>
+              <th className="py-1 text-right font-normal">L</th>
+              <th className="py-1 text-right font-normal">D</th>
+              <th className="py-1 text-right font-normal">Pts</th>
+            </tr>
+          </thead>
+          <tbody>
+            {season.table.map((row, index) => (
+              <tr key={row.teamId} className="border-t border-pavilion-line/50">
+                <td className="py-1">{index + 1}</td>
+                <td className="py-1">{row.name}</td>
+                <td className="py-1 text-right">{row.played}</td>
+                <td className="py-1 text-right">{row.won}</td>
+                <td className="py-1 text-right">{row.lost}</td>
+                <td className="py-1 text-right">{row.drawn + row.tied}</td>
+                <td className="py-1 text-right text-pavilion-accent">{row.points}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
   );
 }
 

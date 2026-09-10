@@ -126,6 +126,9 @@ importers:
       '@pavilion/presentation':
         specifier: workspace:*
         version: link:../presentation
+      '@pavilion/world':
+        specifier: workspace:*
+        version: link:../world
       react:
         specifier: ^18.3.1
         version: 18.3.1

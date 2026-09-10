@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "predev": "pnpm --filter @pavilion/engine build && pnpm --filter @pavilion/narrative build && pnpm --filter @pavilion/presentation build",
+    "predev": "pnpm --filter @pavilion/engine build && pnpm --filter @pavilion/world build && pnpm --filter @pavilion/narrative build && pnpm --filter @pavilion/presentation build",
     "dev": "vite",
-    "prebuild": "pnpm --filter @pavilion/engine build && pnpm --filter @pavilion/narrative build && pnpm --filter @pavilion/presentation build",
+    "prebuild": "pnpm --filter @pavilion/engine build && pnpm --filter @pavilion/world build && pnpm --filter @pavilion/narrative build && pnpm --filter @pavilion/presentation build",
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc -p tsconfig.json --noEmit"
@@ -16,6 +16,7 @@
     "@pavilion/engine": "workspace:*",
     "@pavilion/narrative": "workspace:*",
     "@pavilion/presentation": "workspace:*",
+    "@pavilion/world": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
