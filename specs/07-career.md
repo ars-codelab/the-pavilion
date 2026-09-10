@@ -35,8 +35,21 @@ Coach/Manager and an individual Player. It is pure and deterministic.
 - job offers are unique, exclude the current team, and respect the reputation gate.
 - milestones (100/50/5 wickets) are recorded; ability rises then declines; retirement at 40.
 
+## Season integration
+
+- `playCoachSeason(random, coach, input)` runs a full `simulateSeason` and applies every
+  match involving the coach's team to their reputation, board confidence and win objectives;
+  winning the title credits the `win-series` objective; `seasons` increments.
+- `playPlayerSeason(random, career, input)` runs the season and credits the player's **real**
+  match returns (from batting cards and bowling figures where `playerId` matches) as
+  appearances, then advances the year (development, aging, retirement).
+
+Acceptance tests (`packages/career/test/season-career.test.ts`):
+- a coach plays exactly their team's matches; reputation changes; seasons increment.
+- a player's matches, runs and wickets equal the season totals; age advances.
+
 ## Next
 
-- Season orchestration: fixtures -> matches -> results feeding coach and player careers.
 - Contracts, negotiation and transfers.
 - Wiring narrative effects (press conferences, tabloids) into career state.
+- Career screens in the UI (coach hub, player profile, calendar, records).

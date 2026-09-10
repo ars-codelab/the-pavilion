@@ -9,3 +9,10 @@ export {
   recordAppearance,
 } from './player';
 export type { AppearanceInput } from './player';
+export { playCoachSeason, playPlayerSeason } from './season-career';
+export type {
+  CareerSeasonInput,
+  CoachSeasonResult,
+  PlayerSeasonInput,
+  PlayerSeasonResult,
+} from './season-career';
