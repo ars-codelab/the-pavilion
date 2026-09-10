@@ -19,6 +19,8 @@
     "calibrate": "pnpm --filter @pavilion/calibration calibrate",
     "play": "pnpm --filter @pavilion/play play",
     "assets": "pnpm --filter @pavilion/asset-pipeline generate",
+    "android:sync": "pnpm --filter @pavilion/ui build && pnpm --filter @pavilion/ui cap:sync",
+    "release": "bash tools/release.sh",
     "dev": "pnpm --filter @pavilion/ui dev",
     "verify": "pnpm run format:check && pnpm run lint && pnpm run build && pnpm run typecheck && pnpm run test"
   },

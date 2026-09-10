@@ -9,9 +9,13 @@
     "prebuild": "pnpm --filter @pavilion/engine build && pnpm --filter @pavilion/world build && pnpm --filter @pavilion/career build && pnpm --filter @pavilion/narrative build && pnpm --filter @pavilion/presentation build",
     "build": "vite build",
     "preview": "vite preview",
+    "cap:add": "cap add android",
+    "cap:sync": "cap sync",
+    "android:apk": "cd android && ./gradlew assembleDebug",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@capacitor/core": "^6.2.0",
     "@pavilion/career": "workspace:*",
     "@pavilion/data": "workspace:*",
     "@pavilion/engine": "workspace:*",
@@ -22,6 +26,8 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/cli": "^6.2.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
