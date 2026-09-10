@@ -9,6 +9,15 @@ import {
   simulateSeries,
 } from '@pavilion/engine';
 import type { FormatId, MatchResult, Player, SeriesResult, Team } from '@pavilion/engine';
+import { generatePressConference } from '@pavilion/narrative';
+import {
+  interviewScene,
+  postMatchScene,
+  preMatchScene,
+  startScene,
+  tick,
+} from '@pavilion/presentation';
+import type { Scene } from '@pavilion/presentation';
 import { deleteSave, listSaves, putSave } from './storage';
 import type { SaveRecord } from './storage';
 
@@ -45,6 +54,61 @@ function ordinal(value: number): string {
   return 'th';
 }
 
+function topScorerName(match: MatchResult, players: Map<string, Player>): string {
+  let best = '';
+  let runs = -1;
+  for (const innings of match.innings) {
+    for (const entry of innings.state.battingCard) {
+      if (entry.runs > runs) {
+        runs = entry.runs;
+        best = entry.playerId;
+      }
+    }
+  }
+  return players.get(best)?.surname ?? 'the captain';
+}
+
+function buildScenes(
+  random: Random,
+  result: MatchResult,
+  home: Team,
+  away: Team,
+  venueName: string,
+): Scene[] {
+  const players = new Map<string, Player>();
+  for (const team of [home, away]) {
+    for (const entry of [...team.battingOrder, ...team.bowlingAttack]) players.set(entry.id, entry);
+  }
+  const letter: 'W' | 'L' | 'D' | 'T' = result.drawn
+    ? 'D'
+    : result.tied
+      ? 'T'
+      : result.winnerTeamId === home.id
+        ? 'W'
+        : 'L';
+  const question = generatePressConference(
+    random,
+    {
+      teamName: home.name,
+      matchesPlayed: 1,
+      recentResults: [letter],
+      form: 50,
+      morale: 60,
+      boardConfidence: 60,
+      reputation: 50,
+      starPlayerName: topScorerName(result, players),
+      starPlayerForm: 50,
+    },
+    1,
+  )[0];
+  const scenes: Scene[] = [
+    preMatchScene(result, venueName, result.format.toUpperCase()),
+    postMatchScene(result),
+  ];
+  if (question !== undefined) scenes.push(interviewScene(question));
+  return scenes;
+}
+
 export function App() {
   const [mode, setMode] = useState<Mode>('match');
   const [format, setFormat] = useState<FormatId>('t20');
@@ -55,6 +119,7 @@ export function App() {
   const [seriesLength, setSeriesLength] = useState(3);
   const [match, setMatch] = useState<MatchState | null>(null);
   const [series, setSeries] = useState<SeriesResult | null>(null);
+  const [scenes, setScenes] = useState<Scene[]>([]);
   const [saves, setSaves] = useState<SaveRecord[]>([]);
 
   useEffect(() => {
@@ -81,6 +146,7 @@ export function App() {
       });
       setMatch({ result, home, away });
       setSeries(null);
+      setScenes(buildScenes(random, result, home, away, venue?.name ?? 'the ground'));
     } else {
       const result = simulateSeries(random, {
         spec: FORMATS[format],
@@ -91,6 +157,7 @@ export function App() {
       });
       setSeries(result);
       setMatch(null);
+      setScenes([]);
     }
   }
 
@@ -283,7 +350,20 @@ export function App() {
           </div>
         </section>
 
+        {match !== null && scenes[0] !== undefined && (
+          <ScenePlayer scene={scenes[0]} title="Pre-match" />
+        )}
         {match !== null && <MatchView match={match} nameOf={nameOf} />}
+        {match !== null &&
+          scenes
+            .slice(1)
+            .map((scene) => (
+              <ScenePlayer
+                key={scene.id}
+                scene={scene}
+                title={scene.id.startsWith('interview') ? 'Press conference' : 'Post-match'}
+              />
+            ))}
         {series !== null && <SeriesView series={series} nameOf={nameOf} />}
 
         <SavesPanel saves={saves} onLoad={loadRecord} onDelete={(key) => void remove(key)} />
@@ -475,6 +555,62 @@ function InningsPanel(props: {
         </tbody>
       </table>
     </div>
+  );
+}
+
+function ScenePlayer({ scene, title }: { scene: Scene; title: string }) {
+  const [state, setState] = useState(() => startScene(scene));
+
+  useEffect(() => {
+    setState(startScene(scene));
+  }, [scene]);
+
+  const lastLine = state.lines[state.lines.length - 1];
+
+  return (
+    <section className="border-2 border-pavilion-line bg-pavilion-panel p-4">
+      <div className="flex items-center justify-between">
+        <div className="text-xs uppercase tracking-widest text-pavilion-dim">{title}</div>
+        <div className="text-[10px] text-pavilion-dim">{state.background}</div>
+      </div>
+      <div className="mt-3 min-h-[3rem] text-sm">
+        {lastLine !== undefined ? (
+          <span>{lastLine.text}</span>
+        ) : (
+          <span className="text-pavilion-dim">…</span>
+        )}
+      </div>
+      <div className="mt-2 flex flex-wrap gap-1 text-[10px] text-pavilion-dim">
+        {state.actors.map((actor) => (
+          <span key={actor.id} className="border border-pavilion-line px-1">
+            {actor.name} · {actor.expression}
+          </span>
+        ))}
+      </div>
+      <div className="mt-3">
+        {state.pendingChoice !== null ? (
+          <div className="flex flex-col gap-2">
+            {state.pendingChoice.options.map((option) => (
+              <button
+                key={option.id}
+                onClick={() => setState((current) => tick(current, scene, option.id))}
+                className="border border-pavilion-line px-3 py-2 text-left text-xs text-pavilion-ink"
+              >
+                {option.text}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <button
+            onClick={() => setState((current) => tick(current, scene))}
+            disabled={state.done}
+            className="border border-pavilion-accent px-3 py-2 text-xs uppercase tracking-widest text-pavilion-accent disabled:opacity-40"
+          >
+            {state.done ? 'Scene complete' : 'Continue'}
+          </button>
+        )}
+      </div>
+    </section>
   );
 }
 
