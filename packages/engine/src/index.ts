@@ -36,6 +36,18 @@ export type {
   SimulateMatchOptions,
   Team,
 } from './match-sim';
-export { seriesPlayerStats, simulateSeries } from './series';
+export { simulateSeries, seriesPlayerStats } from './series';
 export type { PlayerSeriesStats, SeriesOptions, SeriesResult } from './series';
+export { InteractiveMatch } from './interactive';
+export type {
+  InteractiveInnings,
+  InteractiveMetrics,
+  InteractiveOptions,
+  InteractiveResult,
+  InteractiveSnapshot,
+  PendingDecision,
+  PendingKind,
+  PendingOption,
+  TossDecision,
+} from './interactive';
 export * from './calibration';
