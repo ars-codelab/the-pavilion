@@ -3,14 +3,23 @@ import { toEngineTeam } from './schema';
 import type { RawMarquee, RawTeam, RawVenue } from './schema';
 import { validateAllMarquee, validateAllTeams, validateAllVenues } from './schema';
 import australiaRaw from './data/teams/australia-legends.json';
+import australiaCurrentRaw from './data/teams/australia-current.json';
 import englandRaw from './data/teams/england-legends.json';
 import indiaRaw from './data/teams/india-legends.json';
+import indiaCurrentRaw from './data/teams/india-current.json';
 import westIndiesRaw from './data/teams/west-indies-legends.json';
 import marqueeRaw from './data/marquee.json';
 import venuesRaw from './data/venues.json';
 
 export const venues = venuesRaw as unknown as RawVenue[];
-export const teams = [englandRaw, indiaRaw, australiaRaw, westIndiesRaw] as unknown as RawTeam[];
+export const teams = [
+  englandRaw,
+  indiaRaw,
+  australiaRaw,
+  westIndiesRaw,
+  indiaCurrentRaw,
+  australiaCurrentRaw,
+] as unknown as RawTeam[];
 export const marquee = marqueeRaw as unknown as RawMarquee[];
 
 const contentErrors = [
