@@ -20,12 +20,20 @@ import {
 import type { Scene } from '@pavilion/presentation';
 import { simulateSeason } from '@pavilion/world';
 import type { SeasonResult, SeasonTeam } from '@pavilion/world';
+import {
+  createCoach,
+  createPlayerCareer,
+  playCoachSeason,
+  playPlayerSeason,
+} from '@pavilion/career';
+import type { CoachCareer, PlayerCareer } from '@pavilion/career';
 import { deleteSave, listSaves, putSave } from './storage';
 import type { SaveRecord } from './storage';
 
 const FORMAT_IDS: FormatId[] = ['test', 'odi', 't20'];
 
-type Mode = 'match' | 'series' | 'league';
+type Mode = 'match' | 'series' | 'league' | 'career';
+type CareerRole = 'coach' | 'player';
 
 interface MatchState {
   result: MatchResult;
@@ -44,6 +52,8 @@ interface SavePayload {
   match: MatchState | null;
   series: SeriesResult | null;
   season?: SeasonResult | null;
+  coachCareer?: CoachCareer | null;
+  playerCareer?: PlayerCareer | null;
 }
 
 function overs(balls: number): string {
@@ -123,6 +133,17 @@ export function App() {
   const [match, setMatch] = useState<MatchState | null>(null);
   const [series, setSeries] = useState<SeriesResult | null>(null);
   const [season, setSeason] = useState<SeasonResult | null>(null);
+  const [careerRole, setCareerRole] = useState<CareerRole>('coach');
+  const [careerName, setCareerName] = useState('Your Name');
+  const [coachCareer, setCoachCareer] = useState<CoachCareer | null>(null);
+  const [playerCareer, setPlayerCareer] = useState<PlayerCareer | null>(null);
+  const [careerRecord, setCareerRecord] = useState<{
+    played: number;
+    won: number;
+    lost: number;
+    drawn: number;
+    tied: number;
+  } | null>(null);
   const [scenes, setScenes] = useState<Scene[]>([]);
   const [saves, setSaves] = useState<SaveRecord[]>([]);
 
@@ -150,6 +171,60 @@ export function App() {
         conditionsForFixture: () => ({ venue }),
       });
       setSeason(result);
+      setMatch(null);
+      setSeries(null);
+      setScenes([]);
+      return;
+    }
+    if (mode === 'career') {
+      const seasonTeams: SeasonTeam[] = teams.map((entry) => ({
+        team: engineTeam(entry.id),
+        rating: { id: entry.id, rating: 1500, matches: 0 },
+      }));
+      if (careerRole === 'coach') {
+        const base =
+          coachCareer !== null && coachCareer.teamId === homeId
+            ? coachCareer
+            : createCoach('you', careerName || 'Coach', homeId, random, '2027-08-31');
+        const outcome = playCoachSeason(random, base, {
+          spec: FORMATS[format],
+          teams: seasonTeams,
+          doubleRound: true,
+        });
+        setCoachCareer(outcome.coach);
+        setPlayerCareer(null);
+        setCareerRecord(outcome.record);
+        setSeason(outcome.season);
+      } else {
+        const engineTeamValue = engineTeam(homeId);
+        const chosen = engineTeamValue.battingOrder[4] ?? engineTeamValue.battingOrder[0];
+        if (chosen === undefined) return;
+        const base =
+          playerCareer !== null && playerCareer.teamId === homeId
+            ? playerCareer
+            : createPlayerCareer(
+                chosen.id,
+                careerName || chosen.surname,
+                homeId,
+                {
+                  batting: Math.min(99, chosen.ratings.battingSkill + 18),
+                  bowling: Math.min(99, chosen.ratings.bowlingSkill + 18),
+                  fielding: Math.min(99, chosen.ratings.fieldingSkill + 12),
+                },
+                24,
+              );
+        const outcome = playPlayerSeason(random, base, {
+          spec: FORMATS[format],
+          teams: seasonTeams,
+          doubleRound: true,
+          playerId: base.playerId,
+          playerTeamId: homeId,
+        });
+        setPlayerCareer(outcome.career);
+        setCoachCareer(null);
+        setCareerRecord(null);
+        setSeason(outcome.season);
+      }
       setMatch(null);
       setSeries(null);
       setScenes([]);
@@ -209,15 +284,21 @@ export function App() {
       match,
       series,
       season,
+      coachCareer,
+      playerCareer,
     };
     const label =
       match !== null
         ? `${match.home.name} v ${match.away.name}`
         : series !== null
           ? `${series.home.name} v ${series.away.name} series`
-          : season !== null
-            ? 'League season'
-            : 'Pavilion game';
+          : coachCareer !== null
+            ? `Coach career: ${coachCareer.name}`
+            : playerCareer !== null
+              ? `Player career: ${playerCareer.name}`
+              : season !== null
+                ? 'League season'
+                : 'Pavilion game';
     await putSave({ key, label, savedAt: Date.now(), payload });
     await refreshSaves();
   }
@@ -234,6 +315,8 @@ export function App() {
     setMatch(payload.match);
     setSeries(payload.series);
     setSeason(payload.season ?? null);
+    setCoachCareer(payload.coachCareer ?? null);
+    setPlayerCareer(payload.playerCareer ?? null);
   }
 
   async function remove(key: string) {
@@ -261,7 +344,7 @@ export function App() {
 
         <section className="border-2 border-pavilion-line bg-pavilion-panel p-4">
           <div className="mb-3 flex gap-2">
-            {(['match', 'series', 'league'] as Mode[]).map((value) => (
+            {(['match', 'series', 'league', 'career'] as Mode[]).map((value) => (
               <button
                 key={value}
                 onClick={() => setMode(value)}
@@ -291,8 +374,37 @@ export function App() {
             ))}
           </div>
 
+          {mode === 'career' && (
+            <div className="mb-3 flex flex-wrap items-center gap-2">
+              {(['coach', 'player'] as CareerRole[]).map((role) => (
+                <button
+                  key={role}
+                  onClick={() => setCareerRole(role)}
+                  className={`border px-3 py-1 text-xs uppercase tracking-widest ${
+                    careerRole === role
+                      ? 'border-pavilion-accent text-pavilion-accent'
+                      : 'border-pavilion-line text-pavilion-dim'
+                  }`}
+                >
+                  {role}
+                </button>
+              ))}
+              <input
+                value={careerName}
+                onChange={(event) => setCareerName(event.target.value)}
+                placeholder="Your name"
+                className="border border-pavilion-line bg-pavilion-bg px-2 py-1 text-xs"
+              />
+              <span className="text-[10px] text-pavilion-dim">
+                {careerRole === 'coach'
+                  ? 'Manage the selected team across seasons'
+                  : "You play as the selected team's No.5"}
+              </span>
+            </div>
+          )}
+
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <Field label="Home">
+            <Field label={mode === 'career' ? 'Your team' : mode === 'league' ? 'League' : 'Home'}>
               <select
                 value={homeId}
                 onChange={(e) => setHomeId(e.target.value)}
@@ -305,19 +417,21 @@ export function App() {
                 ))}
               </select>
             </Field>
-            <Field label="Away">
-              <select
-                value={awayId}
-                onChange={(e) => setAwayId(e.target.value)}
-                className={selectClass}
-              >
-                {teams.map((team) => (
-                  <option key={team.id} value={team.id}>
-                    {team.name}
-                  </option>
-                ))}
-              </select>
-            </Field>
+            {(mode === 'match' || mode === 'series') && (
+              <Field label="Away">
+                <select
+                  value={awayId}
+                  onChange={(e) => setAwayId(e.target.value)}
+                  className={selectClass}
+                >
+                  {teams.map((team) => (
+                    <option key={team.id} value={team.id}>
+                      {team.name}
+                    </option>
+                  ))}
+                </select>
+              </Field>
+            )}
             <Field label="Venue">
               <select
                 value={venueId}
@@ -358,16 +472,20 @@ export function App() {
           <div className="mt-4 flex flex-col gap-2 sm:flex-row">
             <button
               onClick={play}
-              disabled={mode !== 'league' && homeId === awayId}
+              disabled={(mode === 'match' || mode === 'series') && homeId === awayId}
               className="flex-1 border-2 border-pavilion-accent bg-pavilion-accent px-4 py-3 text-sm font-bold uppercase tracking-[0.2em] text-pavilion-bg disabled:opacity-40"
             >
-              {mode !== 'league' && homeId === awayId
+              {(mode === 'match' || mode === 'series') && homeId === awayId
                 ? 'Choose two different sides'
                 : mode === 'match'
                   ? 'Play match'
                   : mode === 'series'
                     ? 'Play series'
-                    : 'Play league'}
+                    : mode === 'league'
+                      ? 'Play league'
+                      : careerRole === 'coach'
+                        ? 'Play season as coach'
+                        : 'Play season as player'}
             </button>
             <button
               onClick={() => void save()}
@@ -395,6 +513,14 @@ export function App() {
             ))}
         {series !== null && <SeriesView series={series} nameOf={nameOf} />}
         {season !== null && <LeagueView season={season} />}
+        {mode === 'career' && (coachCareer !== null || playerCareer !== null) && (
+          <CareerView
+            role={careerRole}
+            coach={coachCareer}
+            player={playerCareer}
+            record={careerRecord}
+          />
+        )}
 
         <SavesPanel saves={saves} onLoad={loadRecord} onDelete={(key) => void remove(key)} />
 
@@ -585,6 +711,88 @@ function InningsPanel(props: {
         </tbody>
       </table>
     </div>
+  );
+}
+
+function Stat({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="border border-pavilion-line px-2 py-1">
+      <div className="text-[10px] text-pavilion-dim">{label}</div>
+      <div className="text-pavilion-accent">{value}</div>
+    </div>
+  );
+}
+
+function CareerView({
+  coach,
+  player,
+  record,
+}: {
+  role: CareerRole;
+  coach: CoachCareer | null;
+  player: PlayerCareer | null;
+  record: { played: number; won: number; lost: number; drawn: number; tied: number } | null;
+}) {
+  return (
+    <section className="flex flex-col gap-4">
+      {coach !== null && (
+        <div className="border-2 border-pavilion-line bg-pavilion-panel p-4 text-xs">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-sm font-bold text-pavilion-accent">Coach: {coach.name}</span>
+            <span className="text-pavilion-dim">{coach.seasons} season(s)</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <Stat label="Reputation" value={coach.reputation.toFixed(0)} />
+            <Stat label="Board" value={coach.boardConfidence.toFixed(0)} />
+            {record !== null && <Stat label="Won" value={`${record.won}/${record.played}`} />}
+            {record !== null && <Stat label="Drawn" value={String(record.drawn + record.tied)} />}
+          </div>
+          <div className="mt-3">
+            <div className="mb-1 text-pavilion-dim">Board objectives</div>
+            {coach.objectives.map((objective) => (
+              <div
+                key={objective.id}
+                className="flex justify-between border-t border-pavilion-line/50 py-1"
+              >
+                <span>{objective.description}</span>
+                <span className={objective.met ? 'text-pavilion-accent' : 'text-pavilion-dim'}>
+                  {objective.progress}/{objective.target}
+                  {objective.met ? ' ✓' : ''}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {player !== null && (
+        <div className="border-2 border-pavilion-line bg-pavilion-panel p-4 text-xs">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-sm font-bold text-pavilion-accent">{player.name}</span>
+            <span className="text-pavilion-dim">
+              Age {player.development.age}
+              {player.retired ? ' · retired' : ''}
+            </span>
+          </div>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <Stat label="Matches" value={String(player.matches)} />
+            <Stat label="Runs" value={String(player.runs)} />
+            <Stat label="Wickets" value={String(player.wickets)} />
+            <Stat label="Form" value={player.development.form.toFixed(0)} />
+            <Stat label="Batting" value={player.development.ability.batting.toFixed(0)} />
+            <Stat label="Bowling" value={player.development.ability.bowling.toFixed(0)} />
+            <Stat label="Fitness" value={player.development.fitness.toFixed(0)} />
+            <Stat label="Morale" value={player.development.morale.toFixed(0)} />
+          </div>
+        </div>
+      )}
+
+      {player === null && coach === null && (
+        <div className="border-2 border-pavilion-line bg-pavilion-panel p-4 text-xs text-pavilion-dim">
+          Press play to begin your career.
+        </div>
+      )}
+    </section>
   );
 }
 

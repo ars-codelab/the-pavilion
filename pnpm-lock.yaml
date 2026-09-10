@@ -114,6 +114,9 @@ importers:
 
   packages/ui:
     dependencies:
+      '@pavilion/career':
+        specifier: workspace:*
+        version: link:../career
       '@pavilion/data':
         specifier: workspace:*
         version: link:../data
