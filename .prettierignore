@@ -3,3 +3,7 @@ dist
 coverage
 pnpm-lock.yaml
 *.md
+android
+ios
+release
+assets/generated
