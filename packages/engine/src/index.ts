@@ -10,10 +10,22 @@ export {
   isInningsComplete,
 } from './match';
 export type { CreateInningsParams } from './match';
-export { sampleDelivery } from './outcome';
-export type { BattingProfile, BowlingProfile, DeliveryContext } from './outcome';
+export { sampleDelivery, NEUTRAL_MODIFIERS } from './outcome';
+export type { BattingProfile, BowlingProfile, DeliveryContext, DeliveryModifiers } from './outcome';
+export { deliveryModifiers, NEUTRAL_VENUE } from './conditions';
+export type {
+  DeliveryModifierInput,
+  MatchConditions,
+  VenueProfile,
+  WeatherKind,
+} from './conditions';
 export { simulateInnings } from './simulate';
-export type { SimulateInningsOptions, SimulatedInnings, SimulatedInningsMetrics } from './simulate';
+export type {
+  SimulateInningsConditions,
+  SimulateInningsOptions,
+  SimulatedInnings,
+  SimulatedInningsMetrics,
+} from './simulate';
 export { simulateMatch } from './match-sim';
 export type {
   MatchInningsResult,

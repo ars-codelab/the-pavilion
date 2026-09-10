@@ -1,6 +1,7 @@
 import type { Random } from './rng';
 import { simulateInnings } from './simulate';
 import type { SimulatedInningsMetrics } from './simulate';
+import type { MatchConditions } from './conditions';
 import type { BowlerInnings, FormatId, FormatSpec, InningsState, Player } from './types';
 
 export interface Team {
@@ -41,6 +42,7 @@ export interface SimulateMatchOptions {
   away: Team;
   /** Fixed toss outcome; omit to simulate one. */
   toss?: MatchToss | null;
+  conditions?: MatchConditions;
 }
 
 const DECLARE_LEAD = 300;
@@ -91,6 +93,7 @@ export function simulateMatch(random: Random, options: SimulateMatchOptions): Ma
       target: extras.target ?? null,
       maxOvers: extras.maxOvers === undefined ? spec.maxOversPerInnings : extras.maxOvers,
       declareAt: extras.declareAt ?? null,
+      conditions: { ...options.conditions, inningsNumber: innings.length + 1 },
     });
     const entry: MatchInningsResult = {
       battingTeamId: batting.id,

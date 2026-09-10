@@ -1,5 +1,5 @@
 import type { Random } from './rng';
-import type { BattingStyle, DismissalKind, FormatId, ResolvedDelivery } from './types';
+import type { BattingStyle, BowlingType, DismissalKind, FormatId, ResolvedDelivery } from './types';
 
 export interface BattingProfile {
   skill: number;
@@ -10,12 +10,22 @@ export interface BattingProfile {
 export interface BowlingProfile {
   skill: number;
   aggression: number;
+  type: BowlingType;
 }
+
+export interface DeliveryModifiers {
+  wicket: number;
+  scoring: number;
+  boundary: number;
+}
+
+export const NEUTRAL_MODIFIERS: DeliveryModifiers = { wicket: 1, scoring: 1, boundary: 1 };
 
 export interface DeliveryContext {
   format: FormatId;
   batter: BattingProfile;
   bowler: BowlingProfile;
+  modifiers?: DeliveryModifiers;
 }
 
 interface OutcomeTable {
@@ -109,15 +119,16 @@ export function sampleDelivery(random: Random, context: DeliveryContext): Resolv
   }
 
   const { batter, bowler } = context;
+  const modifiers = context.modifiers ?? NEUTRAL_MODIFIERS;
   const skillDiff = clamp((batter.skill - bowler.skill) / 100, -1, 1);
   const pressure = clamp((batter.aggression + bowler.aggression) / 200, 0, 1);
 
   const wicketFactor =
     clamp(1 - skillDiff * 0.8, 0.25, 3) * (0.7 + pressure * 0.6) * STYLE_WICKET[batter.style];
-  const wicket = clamp(table.wicket * wicketFactor, 0.002, 0.35);
+  const wicket = clamp(table.wicket * wicketFactor * modifiers.wicket, 0.002, 0.35);
 
-  const runBoost = clamp(1 + skillDiff * 0.6, 0.4, 2) * (0.75 + pressure * 0.5);
-  const boundaryBoost = STYLE_BOUNDARY[batter.style] * (0.7 + pressure * 0.6);
+  const runBoost = clamp(1 + skillDiff * 0.6, 0.4, 2) * (0.75 + pressure * 0.5) * modifiers.scoring;
+  const boundaryBoost = STYLE_BOUNDARY[batter.style] * (0.7 + pressure * 0.6) * modifiers.boundary;
 
   const adjusted = table.runs.map((entry) => ({
     value: entry.runs,

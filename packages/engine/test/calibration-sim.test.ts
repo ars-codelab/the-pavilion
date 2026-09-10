@@ -31,6 +31,7 @@ interface Snapshot {
 function calibrate(format: FormatId, innings: number, seed: number): Snapshot {
   const random = new Random(seed);
   const { order, attack } = makeSide('A');
+  const maxInnings = format === 'test' ? 4 : 2;
   let runs = 0;
   let wickets = 0;
   let legalBalls = 0;
@@ -44,6 +45,7 @@ function calibrate(format: FormatId, innings: number, seed: number): Snapshot {
       bowlingTeamId: 'B',
       battingOrder: order,
       bowlingAttack: attack,
+      conditions: { inningsNumber: (i % maxInnings) + 1 },
     });
     runs += state.runs;
     wickets += state.wickets;
@@ -93,5 +95,36 @@ describe('simulation calibration against real cricket', () => {
       expect(snapshot.boundaryRate).toBeLessThanOrEqual(target.boundaryRate[1]);
       expect(snapshot.wicketsPerInnings).toBeLessThanOrEqual(10);
     }
+  });
+
+  it('makes later Test innings harder (phase deterioration)', () => {
+    const runPhase = (inningsNumber: number, seed: number) => {
+      const random = new Random(seed);
+      const { order, attack } = makeSide('A');
+      let runs = 0;
+      let legalBalls = 0;
+      let dotBalls = 0;
+      for (let i = 0; i < 300; i++) {
+        const { state, metrics } = simulateInnings(random, {
+          spec: FORMATS.test,
+          battingTeamId: 'A',
+          bowlingTeamId: 'B',
+          battingOrder: order,
+          bowlingAttack: attack,
+          conditions: { inningsNumber },
+        });
+        runs += state.runs;
+        legalBalls += state.legalBalls;
+        dotBalls += metrics.dotBalls;
+      }
+      return { rpo: runs / (legalBalls / 6), dot: dotBalls / legalBalls };
+    };
+
+    const first = runPhase(1, 7777);
+    const fourth = runPhase(4, 7778);
+    expect(fourth.rpo).toBeLessThan(first.rpo);
+    expect(fourth.dot).toBeGreaterThan(first.dot);
+    expect(first.rpo - fourth.rpo).toBeGreaterThan(0.05);
+    expect(first.rpo - fourth.rpo).toBeLessThan(0.5);
   });
 });

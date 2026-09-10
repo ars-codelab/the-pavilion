@@ -96,12 +96,14 @@ function simulatedMatches(format: FormatId, innings: number, seed: number): Cric
   const matches: CricsheetMatch[] = [];
 
   for (let i = 0; i < innings; i++) {
+    const maxInnings = format === 'test' ? 4 : 2;
     const { state, metrics } = simulateInnings(random, {
       spec: FORMATS[format],
       battingTeamId: 'A',
       bowlingTeamId: 'B',
       battingOrder: order,
       bowlingAttack: attack,
+      conditions: { inningsNumber: (i % maxInnings) + 1 },
     });
     matches.push({
       matchType: FORMATS[format].name,

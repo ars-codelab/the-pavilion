@@ -1,7 +1,13 @@
 import type { Random } from './rng';
 import { applyDelivery, createInningsState, isInningsComplete } from './match';
+import { deliveryModifiers } from './conditions';
+import type { MatchConditions } from './conditions';
 import { sampleDelivery } from './outcome';
 import type { BowlerInnings, FormatSpec, InningsState, Player } from './types';
+
+export interface SimulateInningsConditions extends MatchConditions {
+  inningsNumber?: number;
+}
 
 export interface SimulateInningsOptions {
   spec: FormatSpec;
@@ -15,6 +21,7 @@ export interface SimulateInningsOptions {
   maxOvers?: number | null;
   /** Declaration: stop at the end of an over once this many runs are scored. */
   declareAt?: number | null;
+  conditions?: SimulateInningsConditions;
 }
 
 export interface SimulatedInningsMetrics {
@@ -142,7 +149,16 @@ export function simulateInnings(random: Random, options: SimulateInningsOptions)
         bowler: {
           skill: bowler.ratings.bowlingSkill,
           aggression: bowler.ratings.bowlingAggression,
+          type: bowler.bowlingType,
         },
+        modifiers: deliveryModifiers({
+          format: spec.id,
+          bowlerType: bowler.bowlingType,
+          inningsNumber: options.conditions?.inningsNumber ?? 1,
+          ballAgeOvers: state.legalBalls / spec.ballsPerOver,
+          venue: options.conditions?.venue,
+          weather: options.conditions?.weather,
+        }),
       });
 
       const extra = delivery.extra;
