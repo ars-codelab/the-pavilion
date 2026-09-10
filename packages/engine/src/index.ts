@@ -34,4 +34,6 @@ export type {
   SimulateMatchOptions,
   Team,
 } from './match-sim';
+export { seriesPlayerStats, simulateSeries } from './series';
+export type { PlayerSeriesStats, SeriesOptions, SeriesResult } from './series';
 export * from './calibration';
