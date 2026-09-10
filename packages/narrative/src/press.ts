@@ -67,7 +67,7 @@ const FACTORIES: QuestionFactory[] = [
   }),
   (context) => ({
     id: 'board',
-    text: 'The board has been quiet. Is your position secure?',
+    text: `The board has been quiet about ${context.teamName}. Is your position secure?`,
     options: [
       {
         id: 'calm',
@@ -87,7 +87,7 @@ const FACTORIES: QuestionFactory[] = [
   }),
   (context) => ({
     id: 'pressure',
-    text: 'The supporters are getting restless. Your message to them?',
+    text: `The ${context.teamName} supporters are getting restless. Your message to them?`,
     options: [
       {
         id: 'grateful',
