@@ -17,6 +17,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "calibrate": "pnpm --filter @pavilion/calibration calibrate",
+    "play": "pnpm --filter @pavilion/play play",
     "verify": "pnpm run format:check && pnpm run lint && pnpm run build && pnpm run typecheck && pnpm run test"
   },
   "pnpm": {

@@ -1,0 +1,74 @@
+[
+  {
+    "id": "lords",
+    "name": "Lord's",
+    "city": "London",
+    "country": "England",
+    "paceAssistance": 2,
+    "spinAssistance": 0,
+    "battingFriendliness": -1
+  },
+  {
+    "id": "mcg",
+    "name": "Melbourne Cricket Ground",
+    "city": "Melbourne",
+    "country": "Australia",
+    "paceAssistance": 2,
+    "spinAssistance": 0,
+    "battingFriendliness": -1
+  },
+  {
+    "id": "galle",
+    "name": "Galle International Stadium",
+    "city": "Galle",
+    "country": "Sri Lanka",
+    "paceAssistance": -1,
+    "spinAssistance": 4,
+    "battingFriendliness": 0
+  },
+  {
+    "id": "mirpur",
+    "name": "Shere Bangla National Stadium",
+    "city": "Mirpur",
+    "country": "Bangladesh",
+    "paceAssistance": 1,
+    "spinAssistance": 3,
+    "battingFriendliness": -3
+  },
+  {
+    "id": "eden-gardens",
+    "name": "Eden Gardens",
+    "city": "Kolkata",
+    "country": "India",
+    "paceAssistance": 0,
+    "spinAssistance": 3,
+    "battingFriendliness": 1
+  },
+  {
+    "id": "newlands",
+    "name": "Newlands",
+    "city": "Cape Town",
+    "country": "South Africa",
+    "paceAssistance": 3,
+    "spinAssistance": 0,
+    "battingFriendliness": -1
+  },
+  {
+    "id": "wankhede",
+    "name": "Wankhede Stadium",
+    "city": "Mumbai",
+    "country": "India",
+    "paceAssistance": 1,
+    "spinAssistance": 1,
+    "battingFriendliness": 2
+  },
+  {
+    "id": "gaddafi",
+    "name": "Gaddafi Stadium",
+    "city": "Lahore",
+    "country": "Pakistan",
+    "paceAssistance": 1,
+    "spinAssistance": 0,
+    "battingFriendliness": 3
+  }
+]

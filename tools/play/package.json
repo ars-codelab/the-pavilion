@@ -1,0 +1,20 @@
+{
+  "name": "@pavilion/play",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "preplay": "pnpm --filter @pavilion/engine build",
+    "play": "tsx src/index.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@pavilion/data": "workspace:*",
+    "@pavilion/engine": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}
