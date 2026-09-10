@@ -1,3 +1,4 @@
+import type { Team } from '../src/match-sim';
 import type { Player } from '../src/types';
 
 export function makePlayer(
@@ -35,4 +36,13 @@ export function makeSide(prefix: string): { order: Player[]; attack: Player[] } 
     makePlayer(`${prefix}B${index + 1}`, 15, skill),
   );
   return { order, attack };
+}
+
+export function makeTeam(id: string, batting: number[], bowling: number[]): Team {
+  return {
+    id,
+    name: id,
+    battingOrder: batting.map((skill, index) => makePlayer(`${id}${index + 1}`, skill, 0)),
+    bowlingAttack: bowling.map((skill, index) => makePlayer(`${id}B${index + 1}`, 15, skill)),
+  };
 }

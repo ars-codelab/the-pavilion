@@ -9,6 +9,12 @@ export interface SimulateInningsOptions {
   bowlingTeamId: string;
   battingOrder: Player[];
   bowlingAttack: Player[];
+  /** Chase: stop as soon as this many runs are scored. */
+  target?: number | null;
+  /** Cap on overs for this innings (e.g. remaining match time). Defaults to the format cap. */
+  maxOvers?: number | null;
+  /** Declaration: stop at the end of an over once this many runs are scored. */
+  declareAt?: number | null;
 }
 
 export interface SimulatedInningsMetrics {
@@ -24,6 +30,7 @@ export interface SimulatedInnings {
   state: InningsState;
   bowlers: BowlerInnings[];
   metrics: SimulatedInningsMetrics;
+  declared: boolean;
 }
 
 function maxBowlerOvers(spec: FormatSpec): number {
@@ -46,7 +53,7 @@ function chooseBowler(
   const pool =
     eligible.length > 0
       ? eligible
-      : indexed.filter((e) => (overs.get(e.player.id) ?? 0) < maxOvers);
+      : indexed.filter((entry) => (overs.get(entry.player.id) ?? 0) < maxOvers);
   if (pool.length === 0) return null;
   const first = pool[0];
   if (first === undefined) return null;
@@ -63,6 +70,10 @@ export function simulateInnings(random: Random, options: SimulateInningsOptions)
   const { spec, battingTeamId, bowlingTeamId, battingOrder, bowlingAttack } = options;
   if (battingOrder.length < 2) throw new Error('a batting order needs at least two players');
   if (bowlingAttack.length === 0) throw new Error('a bowling attack needs at least one player');
+
+  const target = options.target ?? null;
+  const maxOvers = options.maxOvers === undefined ? spec.maxOversPerInnings : options.maxOvers;
+  const declareAt = options.declareAt ?? null;
 
   const players = new Map<string, Player>();
   for (const player of [...battingOrder, ...bowlingAttack]) players.set(player.id, player);
@@ -84,9 +95,17 @@ export function simulateInnings(random: Random, options: SimulateInningsOptions)
     wides: 0,
     noBalls: 0,
   };
+  let declared = false;
   let previousBowlerId: string | null = null;
 
-  while (!isInningsComplete(state, spec)) {
+  const finished = (): boolean => {
+    if (isInningsComplete(state, spec)) return true;
+    if (target !== null && state.runs >= target) return true;
+    if (maxOvers !== null && state.legalBalls >= maxOvers * spec.ballsPerOver) return true;
+    return false;
+  };
+
+  while (!finished()) {
     const bowler = chooseBowler(random, bowlingAttack, bowlerOvers, bowlerMax, previousBowlerId);
     if (bowler === null) break;
     previousBowlerId = bowler.id;
@@ -108,7 +127,7 @@ export function simulateInnings(random: Random, options: SimulateInningsOptions)
     let legalThisOver = 0;
     let concededThisOver = 0;
 
-    while (legalThisOver < spec.ballsPerOver && !isInningsComplete(state, spec)) {
+    while (legalThisOver < spec.ballsPerOver && !finished()) {
       const strikerState = state.batters[state.striker];
       const batter = players.get(strikerState.playerId);
       if (batter === undefined) break;
@@ -157,7 +176,18 @@ export function simulateInnings(random: Random, options: SimulateInningsOptions)
 
     if (legalThisOver === spec.ballsPerOver && concededThisOver === 0) stats.maidens += 1;
     bowlerOvers.set(bowler.id, (bowlerOvers.get(bowler.id) ?? 0) + 1);
+
+    if (
+      declareAt !== null &&
+      !state.closed &&
+      state.runs >= declareAt &&
+      target === null &&
+      !finished()
+    ) {
+      declared = true;
+      break;
+    }
   }
 
-  return { state, bowlers: [...bowlerStats.values()], metrics };
+  return { state, bowlers: [...bowlerStats.values()], metrics, declared };
 }
