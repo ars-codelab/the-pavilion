@@ -10,4 +10,8 @@ export {
   isInningsComplete,
 } from './match';
 export type { CreateInningsParams } from './match';
+export { sampleDelivery } from './outcome';
+export type { BattingProfile, BowlingProfile, DeliveryContext } from './outcome';
+export { simulateInnings } from './simulate';
+export type { SimulateInningsOptions, SimulatedInnings } from './simulate';
 export * from './calibration';
