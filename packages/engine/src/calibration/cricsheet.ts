@@ -1,5 +1,6 @@
 export interface CricsheetInnings {
   team: string;
+  inningsNumber: number;
   runs: number;
   wickets: number;
   legalBalls: number;
@@ -17,6 +18,9 @@ export interface CricsheetMatch {
   matchType: string;
   gender: string;
   date: string | null;
+  month: number | null;
+  venue: string | null;
+  city: string | null;
   teams: [string, string];
   innings: CricsheetInnings[];
 }
@@ -43,7 +47,7 @@ function numberField(record: Record<string, unknown> | null, key: string): numbe
   return record === null ? 0 : asNumber(record[key]);
 }
 
-function parseInnings(value: unknown): CricsheetInnings {
+function parseInnings(value: unknown, inningsNumber: number): CricsheetInnings {
   const record = asRecord(value);
   if (record === null) throw new Error('cricsheet: innings must be an object');
 
@@ -91,6 +95,7 @@ function parseInnings(value: unknown): CricsheetInnings {
 
   return {
     team: asString(record.team) ?? 'Unknown',
+    inningsNumber,
     runs,
     wickets,
     legalBalls,
@@ -124,13 +129,17 @@ export function parseCricsheetMatch(input: unknown): CricsheetMatch {
   }
 
   const dates = asArray(info.dates).map(asString);
-  const firstDate = dates[0];
+  const firstDate = dates[0] ?? null;
+  const month = firstDate === null ? null : Number.parseInt(firstDate.slice(5, 7), 10);
 
   return {
     matchType: asString(info.match_type) ?? 'Unknown',
     gender: asString(info.gender) ?? 'unknown',
-    date: firstDate ?? null,
+    date: firstDate,
+    month: Number.isFinite(month) ? month : null,
+    venue: asString(info.venue),
+    city: asString(info.city),
     teams: [firstTeam, secondTeam],
-    innings: asArray(root.innings).map(parseInnings),
+    innings: asArray(root.innings).map((innings, index) => parseInnings(innings, index + 1)),
   };
 }

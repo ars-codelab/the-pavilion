@@ -5,12 +5,20 @@ import {
   Random,
   parseCricsheetMatch,
   simulateInnings,
+  summariseInnings,
   summariseMatches,
 } from '@pavilion/engine';
-import type { CricsheetMatch, FormatId, Player } from '@pavilion/engine';
+import type {
+  CalibrationSummary,
+  CricsheetInnings,
+  CricsheetMatch,
+  FormatId,
+  Player,
+} from '@pavilion/engine';
 
 const DEFAULT_ROOT = '.cricsheet';
 const SIM_INNINGS = 1200;
+const SEGMENTS = process.argv.includes('--segments');
 
 const BATTING = [45, 42, 40, 38, 36, 34, 30, 26, 18, 12, 8];
 const BOWLING = [46, 43, 40, 37, 30];
@@ -29,6 +37,17 @@ const FULL_MEMBERS = new Set([
   'Afghanistan',
   'Ireland',
 ]);
+
+const TIER_1 = new Set(['Australia', 'England', 'India', 'South Africa', 'New Zealand']);
+const TIER_2 = new Set(['Pakistan', 'Sri Lanka', 'West Indies']);
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+function tierOf(team: string): string {
+  if (TIER_1.has(team)) return 'T1';
+  if (TIER_2.has(team)) return 'T2';
+  return 'T3';
+}
 
 function loadMatches(directory: string, sinceYear: number, gender: string): CricsheetMatch[] {
   if (!existsSync(directory)) return [];
@@ -88,10 +107,14 @@ function simulatedMatches(format: FormatId, innings: number, seed: number): Cric
       matchType: FORMATS[format].name,
       gender: 'male',
       date: null,
+      month: null,
+      venue: null,
+      city: null,
       teams: ['A', 'B'],
       innings: [
         {
           team: 'A',
+          inningsNumber: 1,
           runs: state.runs,
           wickets: state.wickets,
           legalBalls: state.legalBalls,
@@ -110,20 +133,42 @@ function simulatedMatches(format: FormatId, innings: number, seed: number): Cric
   return matches;
 }
 
-function row(label: string, summary: ReturnType<typeof summariseMatches>) {
+function row(label: string, summary: CalibrationSummary) {
   return {
     source: label,
     innings: summary.innings,
     runsPerInnings: summary.runsPerInnings.toFixed(1),
     wicketsPerInnings: summary.wicketsPerInnings.toFixed(2),
     runsPerOver: summary.runsPerOver.toFixed(2),
-    runsPerWicket: summary.runsPerWicket.toFixed(1),
     ballsPerWicket: summary.ballsPerWicket.toFixed(1),
     dotRate: summary.dotRate.toFixed(3),
     boundaryRate: summary.boundaryRate.toFixed(3),
     fourRate: (summary.fours / Math.max(1, summary.legalBalls)).toFixed(3),
     sixRate: (summary.sixes / Math.max(1, summary.legalBalls)).toFixed(3),
   };
+}
+
+interface InningsRef {
+  innings: CricsheetInnings;
+  match: CricsheetMatch;
+}
+
+function groupReport(label: string, refs: InningsRef[], keyFn: (ref: InningsRef) => string | null) {
+  const groups = new Map<string, CricsheetInnings[]>();
+  for (const ref of refs) {
+    const key = keyFn(ref);
+    if (key === null) continue;
+    const list = groups.get(key) ?? [];
+    list.push(ref.innings);
+    groups.set(key, list);
+  }
+  const rows = [...groups.entries()]
+    .filter(([, list]) => list.length >= 30)
+    .sort((a, b) => b[1].length - a[1].length)
+    .map(([key, list]) => row(key, summariseInnings(list)));
+  if (rows.length === 0) return;
+  console.log(`\n  -- ${label} --`);
+  console.table(rows);
 }
 
 const root = process.argv[2] ?? DEFAULT_ROOT;
@@ -150,4 +195,16 @@ for (const dataset of datasets) {
     row(`real ${dataset.format}`, realSummary),
     row(`sim  ${dataset.format}`, simSummary),
   ]);
+
+  if (SEGMENTS) {
+    const refs: InningsRef[] = real.flatMap((match) =>
+      match.innings.map((entry) => ({ innings: entry, match })),
+    );
+    groupReport('by innings number', refs, (ref) => `inn ${ref.innings.inningsNumber}`);
+    groupReport('by month', refs, (ref) =>
+      ref.match.month === null ? null : (MONTHS[ref.match.month - 1] ?? null),
+    );
+    groupReport('by team tier', refs, (ref) => `${tierOf(ref.innings.team)} ${ref.innings.team}`);
+    groupReport('by venue (top)', refs, (ref) => ref.match.venue ?? ref.match.city);
+  }
 }

@@ -1,4 +1,4 @@
-import type { CricsheetMatch } from './cricsheet';
+import type { CricsheetInnings, CricsheetMatch } from './cricsheet';
 
 export interface CalibrationSummary {
   matches: number;
@@ -19,7 +19,7 @@ export interface CalibrationSummary {
   boundaryRate: number;
 }
 
-export function summariseMatches(matches: readonly CricsheetMatch[]): CalibrationSummary {
+export function summariseInnings(entries: readonly CricsheetInnings[]): CalibrationSummary {
   let runs = 0;
   let wickets = 0;
   let legalBalls = 0;
@@ -27,27 +27,23 @@ export function summariseMatches(matches: readonly CricsheetMatch[]): Calibratio
   let dotBalls = 0;
   let fours = 0;
   let sixes = 0;
-  let innings = 0;
 
-  for (const match of matches) {
-    for (const entry of match.innings) {
-      innings += 1;
-      runs += entry.runs;
-      wickets += entry.wickets;
-      legalBalls += entry.legalBalls;
-      deliveries += entry.deliveries;
-      dotBalls += entry.dotBalls;
-      fours += entry.fours;
-      sixes += entry.sixes;
-    }
+  for (const entry of entries) {
+    runs += entry.runs;
+    wickets += entry.wickets;
+    legalBalls += entry.legalBalls;
+    deliveries += entry.deliveries;
+    dotBalls += entry.dotBalls;
+    fours += entry.fours;
+    sixes += entry.sixes;
   }
 
-  const inningsCount = innings === 0 ? 1 : innings;
+  const inningsCount = entries.length === 0 ? 1 : entries.length;
   const overs = legalBalls / 6;
 
   return {
-    matches: matches.length,
-    innings,
+    matches: 0,
+    innings: entries.length,
     runs,
     wickets,
     legalBalls,
@@ -63,4 +59,12 @@ export function summariseMatches(matches: readonly CricsheetMatch[]): Calibratio
     dotRate: legalBalls === 0 ? 0 : dotBalls / legalBalls,
     boundaryRate: legalBalls === 0 ? 0 : (fours + sixes) / legalBalls,
   };
+}
+
+export function summariseMatches(matches: readonly CricsheetMatch[]): CalibrationSummary {
+  const innings: CricsheetInnings[] = [];
+  for (const match of matches) {
+    for (const entry of match.innings) innings.push(entry);
+  }
+  return { ...summariseInnings(innings), matches: matches.length };
 }

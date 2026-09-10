@@ -98,6 +98,33 @@ Acceptance tests:
 (Phase 4); per-ball rates (RPO, balls/wicket, dot, boundary) are the Phase 1 acceptance gate
 and are asserted in `test/calibration-sim.test.ts`.
 
+### Calibration dimensions (measured, not yet modelled)
+
+The calibration tool accepts `--segments` and breaks real innings down by innings number,
+month, team tier and venue. Observed spread is large, so the Phase 1 single global table is a
+baseline only. **None of these are modelled yet.** Findings (men's full members, since 2018):
+
+- **Innings number (Test):** RPO 3.37 / 3.32 / 3.38 / 3.20 and dot 0.723 / 0.727 / 0.715 /
+  0.739 for innings 1-4; 4th-innings scoring and boundary rates fall, dot rate rises.
+- **Team strength (RPO spread):** Test England 3.69 vs West Indies 2.98 / Zimbabwe 2.94;
+  ODI India 5.92 / England 6.13 vs Zimbabwe 4.84; T20 India 9.14 / England 9.09 vs
+  Zimbabwe 7.42 / Bangladesh 7.58.
+- **Venue:** Test Galle dot 0.692 / boundary 0.058 vs MCG boundary 0.049 / dot 0.744;
+  ODI Mirpur 4.88 RPO vs Pallekele 5.73; T20 Mirpur 6.91 RPO vs Gaddafi 8.45.
+- **Month/season:** Test July 3.52 RPO vs March 3.13; T20 February 8.83 vs October 8.01.
+
+Modelling plan (each as a data-driven, calibrated multiplier — never eyeballed):
+
+1. `Team strength` — derive an attack/batting rating from the selected XI and feed a
+   strength differential into the outcome model.
+2. `Venue` — data record per ground: size, pace/spin assistance, typical pitch/bounce.
+3. `Conditions` — pitch, bounce, ball age, outfield, weather; also drive within-match
+   deterioration.
+4. `Innings phase` — innings number and chase pressure (target/required rate).
+5. `Season` — small climate adjustment per month/region.
+
+Each dimension is added only once a segmented calibration test can assert it.
+
 ## Delivery outcome model
 
 `outcome.ts` maps a delivery context (format, batter skill/aggression/style, bowler
