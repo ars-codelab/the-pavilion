@@ -8,7 +8,14 @@ import {
   simulateMatch,
   simulateSeries,
 } from '@pavilion/engine';
-import type { FormatId, MatchResult, Player, SeriesResult, Team } from '@pavilion/engine';
+import type {
+  BallEvent,
+  FormatId,
+  MatchResult,
+  Player,
+  SeriesResult,
+  Team,
+} from '@pavilion/engine';
 import { generatePressConference } from '@pavilion/narrative';
 import {
   interviewScene,
@@ -29,6 +36,7 @@ import {
 import type { CoachCareer, PlayerCareer } from '@pavilion/career';
 import { deleteSave, listSaves, putSave } from './storage';
 import type { SaveRecord } from './storage';
+import { LiveMatch } from './LiveMatch';
 
 const FORMAT_IDS: FormatId[] = ['test', 'odi', 't20'];
 
@@ -131,6 +139,14 @@ export function App() {
   const [seed, setSeed] = useState('1');
   const [seriesLength, setSeriesLength] = useState(3);
   const [match, setMatch] = useState<MatchState | null>(null);
+  const [live, setLive] = useState<{
+    result: MatchResult;
+    home: Team;
+    away: Team;
+    venueName: string;
+    events: BallEvent[];
+  } | null>(null);
+  const [revealed, setRevealed] = useState(0);
   const [series, setSeries] = useState<SeriesResult | null>(null);
   const [season, setSeason] = useState<SeasonResult | null>(null);
   const [careerRole, setCareerRole] = useState<CareerRole>('coach');
@@ -173,6 +189,7 @@ export function App() {
       setSeason(result);
       setMatch(null);
       setSeries(null);
+      setLive(null);
       setScenes([]);
       return;
     }
@@ -227,6 +244,7 @@ export function App() {
       }
       setMatch(null);
       setSeries(null);
+      setLive(null);
       setScenes([]);
       return;
     }
@@ -234,13 +252,17 @@ export function App() {
     const home = engineTeam(homeId);
     const away = engineTeam(awayId);
     if (mode === 'match') {
+      const events: BallEvent[] = [];
       const result = simulateMatch(random, {
         spec: FORMATS[format],
         home,
         away,
         conditions: { venue },
+        events,
       });
       setMatch({ result, home, away });
+      setLive({ result, home, away, venueName: venue?.name ?? 'the ground', events });
+      setRevealed(0);
       setSeries(null);
       setSeason(null);
       setScenes(buildScenes(random, result, home, away, venue?.name ?? 'the ground'));
@@ -255,6 +277,7 @@ export function App() {
       setSeries(result);
       setMatch(null);
       setSeason(null);
+      setLive(null);
       setScenes([]);
     }
   }
@@ -317,6 +340,8 @@ export function App() {
     setSeason(payload.season ?? null);
     setCoachCareer(payload.coachCareer ?? null);
     setPlayerCareer(payload.playerCareer ?? null);
+    setLive(null);
+    setRevealed(0);
   }
 
   async function remove(key: string) {
@@ -500,17 +525,32 @@ export function App() {
         {match !== null && scenes[0] !== undefined && (
           <ScenePlayer scene={scenes[0]} title="Pre-match" />
         )}
-        {match !== null && <MatchView match={match} nameOf={nameOf} />}
-        {match !== null &&
-          scenes
-            .slice(1)
-            .map((scene) => (
-              <ScenePlayer
-                key={scene.id}
-                scene={scene}
-                title={scene.id.startsWith('interview') ? 'Press conference' : 'Post-match'}
-              />
-            ))}
+        {mode === 'match' && live !== null && revealed < live.events.length ? (
+          <LiveMatch
+            result={live.result}
+            home={live.home}
+            away={live.away}
+            venueName={live.venueName}
+            events={live.events}
+            revealed={revealed}
+            onReveal={setRevealed}
+            nameOf={nameOf}
+          />
+        ) : (
+          <>
+            {match !== null && <MatchView match={match} nameOf={nameOf} />}
+            {match !== null &&
+              scenes
+                .slice(1)
+                .map((scene) => (
+                  <ScenePlayer
+                    key={scene.id}
+                    scene={scene}
+                    title={scene.id.startsWith('interview') ? 'Press conference' : 'Post-match'}
+                  />
+                ))}
+          </>
+        )}
         {series !== null && <SeriesView series={series} nameOf={nameOf} />}
         {season !== null && <LeagueView season={season} />}
         {mode === 'career' && (coachCareer !== null || playerCareer !== null) && (

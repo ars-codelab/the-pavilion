@@ -2,6 +2,7 @@ import type { Random } from './rng';
 import { applyDelivery, createInningsState, isInningsComplete } from './match';
 import { deliveryModifiers } from './conditions';
 import type { MatchConditions } from './conditions';
+import type { BallEvent } from './events';
 import { sampleDelivery } from './outcome';
 import type { BowlerInnings, FormatSpec, InningsState, Player } from './types';
 
@@ -22,6 +23,8 @@ export interface SimulateInningsOptions {
   /** Declaration: stop at the end of an over once this many runs are scored. */
   declareAt?: number | null;
   conditions?: SimulateInningsConditions;
+  /** Optional sink: when provided, a ball-by-ball event is appended for every delivery. */
+  events?: BallEvent[];
 }
 
 export interface SimulatedInningsMetrics {
@@ -187,7 +190,47 @@ export function simulateInnings(random: Random, options: SimulateInningsOptions)
         (extra !== null && (extra.kind === 'bye' || extra.kind === 'legbye') ? extra.runs : 0);
       if (isLegal && dotRuns === 0) metrics.dotBalls += 1;
 
+      const strikerId = strikerState.playerId;
+      const nonStrikerId = state.batters[state.striker === 0 ? 1 : 0].playerId;
+      const legalBefore = state.legalBalls;
       state = applyDelivery(state, delivery, spec.ballsPerOver);
+
+      const eventSink = options.events;
+      if (eventSink !== undefined) {
+        const batterEntry = state.battingCard.find((entry) => entry.playerId === strikerId);
+        const teamRuns =
+          delivery.runsOffBat +
+          (extra === null
+            ? 0
+            : extra.kind === 'wide' || extra.kind === 'noball'
+              ? 1 + extra.runs
+              : extra.runs);
+        eventSink.push({
+          inningsIndex: (options.conditions?.inningsNumber ?? 1) - 1,
+          battingTeamId,
+          bowlingTeamId,
+          over: Math.floor(legalBefore / spec.ballsPerOver),
+          ballInOver: (legalBefore % spec.ballsPerOver) + 1,
+          batterId: strikerId,
+          nonStrikerId,
+          bowlerId: bowler.id,
+          runsOffBat: delivery.runsOffBat,
+          extraKind: extra?.kind ?? null,
+          wicketKind: delivery.wicket?.kind ?? null,
+          totalRuns: teamRuns,
+          score: state.runs,
+          wickets: state.wickets,
+          batterRuns: batterEntry?.runs ?? 0,
+          highlight:
+            delivery.wicket !== null
+              ? 'wicket'
+              : delivery.runsOffBat === 4
+                ? 'four'
+                : delivery.runsOffBat === 6
+                  ? 'six'
+                  : null,
+        });
+      }
     }
 
     if (legalThisOver === spec.ballsPerOver && concededThisOver === 0) stats.maidens += 1;

@@ -12,3 +12,18 @@ body {
   min-height: 100%;
   background: #0e1a14;
 }
+
+@keyframes ball-in {
+  from {
+    transform: translateY(-8px) scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.ball-chip {
+  animation: ball-in 220ms ease-out;
+}

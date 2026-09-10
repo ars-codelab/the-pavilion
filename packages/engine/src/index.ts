@@ -2,6 +2,8 @@ export { Random } from './rng';
 export type { RandomSeed, RandomState } from './rng';
 export type * from './types';
 export { FORMATS } from './formats';
+export { ballLabel } from './events';
+export type { BallEvent, BallHighlight } from './events';
 export {
   applyDelivery,
   ballsThisOver,
