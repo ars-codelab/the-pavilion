@@ -50,6 +50,14 @@ Acceptance: every player assigned at most once; per-franchise spend within purse
 overseas limits; deterministic for a seed; direct signing rejects over-budget, full-squad and
 over-overseas moves.
 
+### season
+- `simulateSeason` schedules a round robin, plays each fixture with `simulateMatch`, updates
+  each team's Elo, and produces a table (played/won/lost/drawn/tied/points/rating) and a
+  champion. Points: win 2, draw/tie 1.
+
+Acceptance: full double round robin produces the right number of matches and per-team games;
+the champion has the most points; deterministic for a seed; ratings move from their start.
+
 ## Tests
 
-`packages/world/test/*` — 22 tests, all pure.
+`packages/world/test/*` — 26 tests, all pure.
