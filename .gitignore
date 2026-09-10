@@ -28,3 +28,6 @@ ios/
 # Local data (large Cricsheet dumps etc.)
 .cricsheet/
 *.zip
+
+# Generated assets (art source is tracked elsewhere)
+assets/generated/

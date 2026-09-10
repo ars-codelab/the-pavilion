@@ -18,6 +18,7 @@
     "format:check": "prettier --check .",
     "calibrate": "pnpm --filter @pavilion/calibration calibrate",
     "play": "pnpm --filter @pavilion/play play",
+    "assets": "pnpm --filter @pavilion/asset-pipeline generate",
     "dev": "pnpm --filter @pavilion/ui dev",
     "verify": "pnpm run format:check && pnpm run lint && pnpm run build && pnpm run typecheck && pnpm run test"
   },

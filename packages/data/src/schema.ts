@@ -42,6 +42,32 @@ export interface RawVenue {
   battingFriendliness: number;
 }
 
+export type MarqueeRole = 'batter' | 'bowler' | 'all-rounder' | 'keeper';
+
+export type HairStyle = 'short' | 'curly' | 'bald' | 'long' | 'cap';
+export type FacialHair = 'none' | 'stubble' | 'moustache' | 'beard';
+export type Built = 'slight' | 'medium' | 'strong';
+
+export interface PortraitSpec {
+  /** 1 (light) to 5 (deep). */
+  skinTone: number;
+  hairStyle: HairStyle;
+  hairColour: string;
+  facialHair: FacialHair;
+  build: Built;
+  headgear: 'none' | 'cap' | 'helmet';
+}
+
+export interface RawMarquee {
+  id: string;
+  name: string;
+  country: string;
+  era: string;
+  role: MarqueeRole;
+  /** Optional explicit descriptor for a closer likeness; otherwise derived. */
+  portrait?: PortraitSpec;
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
@@ -230,4 +256,76 @@ export function toEngineTeam(raw: RawTeam): Team {
     )
     .slice(0, 6);
   return { id: raw.id, name: raw.name, battingOrder, bowlingAttack };
+}
+
+const MARQUEE_ROLES = new Set<MarqueeRole>(['batter', 'bowler', 'all-rounder', 'keeper']);
+const HAIR_STYLES: HairStyle[] = ['short', 'curly', 'bald', 'long', 'cap'];
+const FACIAL_HAIR: FacialHair[] = ['none', 'stubble', 'moustache', 'beard'];
+const BUILDS: Built[] = ['slight', 'medium', 'strong'];
+const HAIR_COLOURS = ['black', 'dark-brown', 'brown', 'blond', 'auburn', 'grey'];
+
+const SKIN_BY_COUNTRY: Record<string, number> = {
+  England: 1,
+  Australia: 2,
+  'New Zealand': 2,
+  'South Africa': 3,
+  India: 4,
+  Pakistan: 4,
+  Bangladesh: 4,
+  Afghanistan: 4,
+  'Sri Lanka': 5,
+  'West Indies': 5,
+};
+
+function hashString(value: string): number {
+  let hash = 2166136261;
+  for (let i = 0; i < value.length; i += 1) {
+    hash ^= value.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+export function derivePortrait(raw: RawMarquee): PortraitSpec {
+  if (raw.portrait !== undefined) return raw.portrait;
+  const hash = hashString(raw.id);
+  return {
+    skinTone: SKIN_BY_COUNTRY[raw.country] ?? (hash % 5) + 1,
+    hairStyle: HAIR_STYLES[hash % HAIR_STYLES.length] ?? 'short',
+    hairColour: HAIR_COLOURS[(hash >> 3) % HAIR_COLOURS.length] ?? 'black',
+    facialHair: FACIAL_HAIR[(hash >> 6) % FACIAL_HAIR.length] ?? 'none',
+    build: raw.role === 'bowler' ? 'strong' : (BUILDS[(hash >> 9) % BUILDS.length] ?? 'medium'),
+    headgear: raw.era >= '2010s' ? 'cap' : 'none',
+  };
+}
+
+export function validateMarquee(value: unknown, index = 0): string[] {
+  const where = `marquee[${index}]`;
+  if (!isRecord(value)) return [`${where}: must be an object`];
+  const errors: string[] = [];
+  for (const key of ['id', 'name', 'country', 'era']) {
+    if (typeof value[key] !== 'string' || value[key] === '') {
+      errors.push(`${where}: ${key} must be a non-empty string`);
+    }
+  }
+  if (typeof value.role !== 'string' || !MARQUEE_ROLES.has(value.role as MarqueeRole)) {
+    errors.push(`${where}: invalid role`);
+  }
+  if (value.portrait !== undefined && !isRecord(value.portrait)) {
+    errors.push(`${where}: portrait must be an object when present`);
+  }
+  return errors;
+}
+
+export function validateAllMarquee(values: readonly unknown[]): string[] {
+  const errors: string[] = [];
+  const seen = new Set<string>();
+  values.forEach((value, index) => {
+    errors.push(...validateMarquee(value, index));
+    if (isRecord(value) && typeof value.id === 'string') {
+      if (seen.has(value.id)) errors.push(`marquee: duplicate id ${value.id}`);
+      seen.add(value.id);
+    }
+  });
+  return errors;
 }

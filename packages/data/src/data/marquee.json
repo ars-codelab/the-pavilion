@@ -1,0 +1,589 @@
+[
+  {
+    "id": "bradman",
+    "name": "Don Bradman",
+    "country": "Australia",
+    "era": "1930s",
+    "role": "batter"
+  },
+  { "id": "hobbs", "name": "Jack Hobbs", "country": "England", "era": "1910s", "role": "batter" },
+  { "id": "hutton", "name": "Len Hutton", "country": "England", "era": "1950s", "role": "batter" },
+  {
+    "id": "hammond",
+    "name": "Wally Hammond",
+    "country": "England",
+    "era": "1930s",
+    "role": "all-rounder"
+  },
+  {
+    "id": "sobers",
+    "name": "Garry Sobers",
+    "country": "West Indies",
+    "era": "1960s",
+    "role": "all-rounder"
+  },
+  {
+    "id": "richards",
+    "name": "Viv Richards",
+    "country": "West Indies",
+    "era": "1980s",
+    "role": "batter"
+  },
+  {
+    "id": "lara",
+    "name": "Brian Lara",
+    "country": "West Indies",
+    "era": "1990s",
+    "role": "batter"
+  },
+  {
+    "id": "greenidge",
+    "name": "Gordon Greenidge",
+    "country": "West Indies",
+    "era": "1980s",
+    "role": "batter"
+  },
+  {
+    "id": "marshall",
+    "name": "Malcolm Marshall",
+    "country": "West Indies",
+    "era": "1980s",
+    "role": "bowler"
+  },
+  {
+    "id": "ambrose",
+    "name": "Curtly Ambrose",
+    "country": "West Indies",
+    "era": "1990s",
+    "role": "bowler"
+  },
+  {
+    "id": "garner",
+    "name": "Joel Garner",
+    "country": "West Indies",
+    "era": "1980s",
+    "role": "bowler"
+  },
+  {
+    "id": "tendulkar",
+    "name": "Sachin Tendulkar",
+    "country": "India",
+    "era": "1990s",
+    "role": "batter"
+  },
+  {
+    "id": "gavaskar",
+    "name": "Sunil Gavaskar",
+    "country": "India",
+    "era": "1980s",
+    "role": "batter"
+  },
+  { "id": "kohli", "name": "Virat Kohli", "country": "India", "era": "2010s", "role": "batter" },
+  { "id": "dravid", "name": "Rahul Dravid", "country": "India", "era": "2000s", "role": "batter" },
+  {
+    "id": "sehwag",
+    "name": "Virender Sehwag",
+    "country": "India",
+    "era": "2000s",
+    "role": "batter"
+  },
+  { "id": "rohit", "name": "Rohit Sharma", "country": "India", "era": "2010s", "role": "batter" },
+  { "id": "kapil", "name": "Kapil Dev", "country": "India", "era": "1980s", "role": "all-rounder" },
+  { "id": "dhoni", "name": "MS Dhoni", "country": "India", "era": "2000s", "role": "keeper" },
+  { "id": "kumble", "name": "Anil Kumble", "country": "India", "era": "1990s", "role": "bowler" },
+  {
+    "id": "ashwin",
+    "name": "Ravichandran Ashwin",
+    "country": "India",
+    "era": "2010s",
+    "role": "all-rounder"
+  },
+  {
+    "id": "bumrah",
+    "name": "Jasprit Bumrah",
+    "country": "India",
+    "era": "2020s",
+    "role": "bowler"
+  },
+  { "id": "shami", "name": "Mohammed Shami", "country": "India", "era": "2010s", "role": "bowler" },
+  {
+    "id": "jadeja",
+    "name": "Ravindra Jadeja",
+    "country": "India",
+    "era": "2010s",
+    "role": "all-rounder"
+  },
+  { "id": "pant", "name": "Rishabh Pant", "country": "India", "era": "2020s", "role": "keeper" },
+  { "id": "gill", "name": "Shubman Gill", "country": "India", "era": "2020s", "role": "batter" },
+  {
+    "id": "jaiswal",
+    "name": "Yashasvi Jaiswal",
+    "country": "India",
+    "era": "2020s",
+    "role": "batter"
+  },
+  {
+    "id": "suryakumar",
+    "name": "Suryakumar Yadav",
+    "country": "India",
+    "era": "2020s",
+    "role": "batter"
+  },
+  {
+    "id": "hardik",
+    "name": "Hardik Pandya",
+    "country": "India",
+    "era": "2020s",
+    "role": "all-rounder"
+  },
+  { "id": "zaheer", "name": "Zaheer Khan", "country": "India", "era": "2000s", "role": "bowler" },
+  {
+    "id": "warne",
+    "name": "Shane Warne",
+    "country": "Australia",
+    "era": "1990s",
+    "role": "bowler"
+  },
+  {
+    "id": "mcgrath",
+    "name": "Glenn McGrath",
+    "country": "Australia",
+    "era": "1990s",
+    "role": "bowler"
+  },
+  {
+    "id": "lillee",
+    "name": "Dennis Lillee",
+    "country": "Australia",
+    "era": "1970s",
+    "role": "bowler"
+  },
+  {
+    "id": "ponting",
+    "name": "Ricky Ponting",
+    "country": "Australia",
+    "era": "2000s",
+    "role": "batter"
+  },
+  {
+    "id": "gilchrist",
+    "name": "Adam Gilchrist",
+    "country": "Australia",
+    "era": "2000s",
+    "role": "keeper"
+  },
+  {
+    "id": "steve-waugh",
+    "name": "Steve Waugh",
+    "country": "Australia",
+    "era": "1990s",
+    "role": "batter"
+  },
+  {
+    "id": "hayden",
+    "name": "Matthew Hayden",
+    "country": "Australia",
+    "era": "2000s",
+    "role": "batter"
+  },
+  {
+    "id": "border",
+    "name": "Allan Border",
+    "country": "Australia",
+    "era": "1980s",
+    "role": "batter"
+  },
+  {
+    "id": "chappell",
+    "name": "Greg Chappell",
+    "country": "Australia",
+    "era": "1970s",
+    "role": "batter"
+  },
+  {
+    "id": "smith",
+    "name": "Steve Smith",
+    "country": "Australia",
+    "era": "2010s",
+    "role": "batter"
+  },
+  {
+    "id": "warner",
+    "name": "David Warner",
+    "country": "Australia",
+    "era": "2010s",
+    "role": "batter"
+  },
+  {
+    "id": "cummins",
+    "name": "Pat Cummins",
+    "country": "Australia",
+    "era": "2020s",
+    "role": "bowler"
+  },
+  {
+    "id": "starc",
+    "name": "Mitchell Starc",
+    "country": "Australia",
+    "era": "2010s",
+    "role": "bowler"
+  },
+  {
+    "id": "hazlewood",
+    "name": "Josh Hazlewood",
+    "country": "Australia",
+    "era": "2010s",
+    "role": "bowler"
+  },
+  {
+    "id": "maxwell",
+    "name": "Glenn Maxwell",
+    "country": "Australia",
+    "era": "2010s",
+    "role": "all-rounder"
+  },
+  { "id": "head", "name": "Travis Head", "country": "Australia", "era": "2020s", "role": "batter" },
+  {
+    "id": "botham",
+    "name": "Ian Botham",
+    "country": "England",
+    "era": "1980s",
+    "role": "all-rounder"
+  },
+  {
+    "id": "trueman",
+    "name": "Fred Trueman",
+    "country": "England",
+    "era": "1960s",
+    "role": "bowler"
+  },
+  { "id": "knott", "name": "Alan Knott", "country": "England", "era": "1970s", "role": "keeper" },
+  {
+    "id": "anderson",
+    "name": "James Anderson",
+    "country": "England",
+    "era": "2010s",
+    "role": "bowler"
+  },
+  { "id": "root", "name": "Joe Root", "country": "England", "era": "2010s", "role": "batter" },
+  {
+    "id": "stokes",
+    "name": "Ben Stokes",
+    "country": "England",
+    "era": "2010s",
+    "role": "all-rounder"
+  },
+  {
+    "id": "buttler",
+    "name": "Jos Buttler",
+    "country": "England",
+    "era": "2010s",
+    "role": "keeper"
+  },
+  { "id": "morgan", "name": "Eoin Morgan", "country": "England", "era": "2010s", "role": "batter" },
+  { "id": "brook", "name": "Harry Brook", "country": "England", "era": "2020s", "role": "batter" },
+  {
+    "id": "archer",
+    "name": "Jofra Archer",
+    "country": "England",
+    "era": "2020s",
+    "role": "bowler"
+  },
+  {
+    "id": "moeen",
+    "name": "Moeen Ali",
+    "country": "England",
+    "era": "2010s",
+    "role": "all-rounder"
+  },
+  {
+    "id": "kallis",
+    "name": "Jacques Kallis",
+    "country": "South Africa",
+    "era": "2000s",
+    "role": "all-rounder"
+  },
+  {
+    "id": "steyn",
+    "name": "Dale Steyn",
+    "country": "South Africa",
+    "era": "2000s",
+    "role": "bowler"
+  },
+  {
+    "id": "pollock",
+    "name": "Shaun Pollock",
+    "country": "South Africa",
+    "era": "1990s",
+    "role": "all-rounder"
+  },
+  {
+    "id": "graeme-smith",
+    "name": "Graeme Smith",
+    "country": "South Africa",
+    "era": "2000s",
+    "role": "batter"
+  },
+  {
+    "id": "de-villiers",
+    "name": "AB de Villiers",
+    "country": "South Africa",
+    "era": "2010s",
+    "role": "batter"
+  },
+  {
+    "id": "amla",
+    "name": "Hashim Amla",
+    "country": "South Africa",
+    "era": "2010s",
+    "role": "batter"
+  },
+  {
+    "id": "donald",
+    "name": "Allan Donald",
+    "country": "South Africa",
+    "era": "1990s",
+    "role": "bowler"
+  },
+  {
+    "id": "rabada",
+    "name": "Kagiso Rabada",
+    "country": "South Africa",
+    "era": "2020s",
+    "role": "bowler"
+  },
+  { "id": "wasim", "name": "Wasim Akram", "country": "Pakistan", "era": "1990s", "role": "bowler" },
+  {
+    "id": "waqar",
+    "name": "Waqar Younis",
+    "country": "Pakistan",
+    "era": "1990s",
+    "role": "bowler"
+  },
+  {
+    "id": "imran",
+    "name": "Imran Khan",
+    "country": "Pakistan",
+    "era": "1980s",
+    "role": "all-rounder"
+  },
+  {
+    "id": "inzamam",
+    "name": "Inzamam-ul-Haq",
+    "country": "Pakistan",
+    "era": "1990s",
+    "role": "batter"
+  },
+  {
+    "id": "yousuf",
+    "name": "Mohammad Yousuf",
+    "country": "Pakistan",
+    "era": "2000s",
+    "role": "batter"
+  },
+  {
+    "id": "shoaib",
+    "name": "Shoaib Akhtar",
+    "country": "Pakistan",
+    "era": "2000s",
+    "role": "bowler"
+  },
+  { "id": "babar", "name": "Babar Azam", "country": "Pakistan", "era": "2020s", "role": "batter" },
+  {
+    "id": "shaheen",
+    "name": "Shaheen Afridi",
+    "country": "Pakistan",
+    "era": "2020s",
+    "role": "bowler"
+  },
+  {
+    "id": "rizwan",
+    "name": "Mohammad Rizwan",
+    "country": "Pakistan",
+    "era": "2020s",
+    "role": "keeper"
+  },
+  {
+    "id": "murali",
+    "name": "Muttiah Muralitharan",
+    "country": "Sri Lanka",
+    "era": "2000s",
+    "role": "bowler"
+  },
+  {
+    "id": "sangakkara",
+    "name": "Kumar Sangakkara",
+    "country": "Sri Lanka",
+    "era": "2000s",
+    "role": "keeper"
+  },
+  {
+    "id": "jayawardene",
+    "name": "Mahela Jayawardene",
+    "country": "Sri Lanka",
+    "era": "2000s",
+    "role": "batter"
+  },
+  {
+    "id": "jayasuriya",
+    "name": "Sanath Jayasuriya",
+    "country": "Sri Lanka",
+    "era": "1990s",
+    "role": "all-rounder"
+  },
+  {
+    "id": "vaas",
+    "name": "Chaminda Vaas",
+    "country": "Sri Lanka",
+    "era": "2000s",
+    "role": "bowler"
+  },
+  {
+    "id": "aravinda",
+    "name": "Aravinda de Silva",
+    "country": "Sri Lanka",
+    "era": "1990s",
+    "role": "batter"
+  },
+  {
+    "id": "hadlee",
+    "name": "Richard Hadlee",
+    "country": "New Zealand",
+    "era": "1980s",
+    "role": "all-rounder"
+  },
+  {
+    "id": "crowe",
+    "name": "Martin Crowe",
+    "country": "New Zealand",
+    "era": "1980s",
+    "role": "batter"
+  },
+  {
+    "id": "mccullum",
+    "name": "Brendon McCullum",
+    "country": "New Zealand",
+    "era": "2000s",
+    "role": "keeper"
+  },
+  {
+    "id": "williamson",
+    "name": "Kane Williamson",
+    "country": "New Zealand",
+    "era": "2010s",
+    "role": "batter"
+  },
+  {
+    "id": "boult",
+    "name": "Trent Boult",
+    "country": "New Zealand",
+    "era": "2010s",
+    "role": "bowler"
+  },
+  {
+    "id": "taylor",
+    "name": "Ross Taylor",
+    "country": "New Zealand",
+    "era": "2010s",
+    "role": "batter"
+  },
+  {
+    "id": "vettori",
+    "name": "Daniel Vettori",
+    "country": "New Zealand",
+    "era": "2000s",
+    "role": "all-rounder"
+  },
+  {
+    "id": "flemming",
+    "name": "Stephen Fleming",
+    "country": "New Zealand",
+    "era": "2000s",
+    "role": "batter"
+  },
+  {
+    "id": "shakib",
+    "name": "Shakib Al Hasan",
+    "country": "Bangladesh",
+    "era": "2010s",
+    "role": "all-rounder"
+  },
+  {
+    "id": "mushfiqur",
+    "name": "Mushfiqur Rahim",
+    "country": "Bangladesh",
+    "era": "2010s",
+    "role": "keeper"
+  },
+  {
+    "id": "tamim",
+    "name": "Tamim Iqbal",
+    "country": "Bangladesh",
+    "era": "2010s",
+    "role": "batter"
+  },
+  {
+    "id": "rashid-khan",
+    "name": "Rashid Khan",
+    "country": "Afghanistan",
+    "era": "2020s",
+    "role": "bowler"
+  },
+  {
+    "id": "flintoff",
+    "name": "Andrew Flintoff",
+    "country": "England",
+    "era": "2000s",
+    "role": "all-rounder"
+  },
+  {
+    "id": "pietersen",
+    "name": "Kevin Pietersen",
+    "country": "England",
+    "era": "2000s",
+    "role": "batter"
+  },
+  { "id": "cook", "name": "Alastair Cook", "country": "England", "era": "2010s", "role": "batter" },
+  {
+    "id": "gayle",
+    "name": "Chris Gayle",
+    "country": "West Indies",
+    "era": "2010s",
+    "role": "batter"
+  },
+  {
+    "id": "pollard",
+    "name": "Kieron Pollard",
+    "country": "West Indies",
+    "era": "2010s",
+    "role": "all-rounder"
+  },
+  {
+    "id": "holder",
+    "name": "Jason Holder",
+    "country": "West Indies",
+    "era": "2020s",
+    "role": "all-rounder"
+  },
+  {
+    "id": "russell",
+    "name": "Andre Russell",
+    "country": "West Indies",
+    "era": "2010s",
+    "role": "all-rounder"
+  },
+  {
+    "id": "narine",
+    "name": "Sunil Narine",
+    "country": "West Indies",
+    "era": "2010s",
+    "role": "bowler"
+  },
+  {
+    "id": "jamieson",
+    "name": "Kyle Jamieson",
+    "country": "New Zealand",
+    "era": "2020s",
+    "role": "all-rounder"
+  }
+]

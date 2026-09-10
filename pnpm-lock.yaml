@@ -177,6 +177,22 @@ importers:
         specifier: ^2.1.8
         version: 2.1.9(@types/node@22.20.2)(terser@5.51.2)
 
+  tools/asset-pipeline:
+    dependencies:
+      '@pavilion/data':
+        specifier: workspace:*
+        version: link:../../packages/data
+    devDependencies:
+      '@types/node':
+        specifier: ^22.9.0
+        version: 22.20.2
+      tsx:
+        specifier: ^4.19.2
+        version: 4.23.13
+      typescript:
+        specifier: ^5.6.3
+        version: 5.9.3
+
   tools/calibration:
     dependencies:
       '@pavilion/engine':

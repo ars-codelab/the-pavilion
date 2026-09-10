@@ -1,0 +1,2035 @@
+{
+  "version": 1,
+  "atlas": {
+    "sheet": "portraits",
+    "width": 2048,
+    "height": 2048
+  },
+  "cell": {
+    "width": 32,
+    "height": 48
+  },
+  "count": 101,
+  "portraits": [
+    {
+      "playerId": "bradman",
+      "name": "Don Bradman",
+      "country": "Australia",
+      "era": "1930s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 0,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "curly",
+      "hairColour": "grey",
+      "facialHair": "moustache",
+      "build": "slight",
+      "headgear": "none"
+    },
+    {
+      "playerId": "hobbs",
+      "name": "Jack Hobbs",
+      "country": "England",
+      "era": "1910s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 1,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 1,
+      "hairStyle": "cap",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "hutton",
+      "name": "Len Hutton",
+      "country": "England",
+      "era": "1950s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 2,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 1,
+      "hairStyle": "long",
+      "hairColour": "blond",
+      "facialHair": "beard",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "hammond",
+      "name": "Wally Hammond",
+      "country": "England",
+      "era": "1930s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 3,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 1,
+      "hairStyle": "curly",
+      "hairColour": "auburn",
+      "facialHair": "stubble",
+      "build": "slight",
+      "headgear": "none"
+    },
+    {
+      "playerId": "sobers",
+      "name": "Garry Sobers",
+      "country": "West Indies",
+      "era": "1960s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 4,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "bald",
+      "hairColour": "brown",
+      "facialHair": "moustache",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "richards",
+      "name": "Viv Richards",
+      "country": "West Indies",
+      "era": "1980s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 5,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "cap",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "lara",
+      "name": "Brian Lara",
+      "country": "West Indies",
+      "era": "1990s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 6,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "bald",
+      "hairColour": "blond",
+      "facialHair": "moustache",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "greenidge",
+      "name": "Gordon Greenidge",
+      "country": "West Indies",
+      "era": "1980s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 7,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "bald",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "marshall",
+      "name": "Malcolm Marshall",
+      "country": "West Indies",
+      "era": "1980s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 8,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "short",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "ambrose",
+      "name": "Curtly Ambrose",
+      "country": "West Indies",
+      "era": "1990s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 9,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "curly",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "garner",
+      "name": "Joel Garner",
+      "country": "West Indies",
+      "era": "1980s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 10,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "short",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "tendulkar",
+      "name": "Sachin Tendulkar",
+      "country": "India",
+      "era": "1990s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 11,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "bald",
+      "hairColour": "brown",
+      "facialHair": "moustache",
+      "build": "slight",
+      "headgear": "none"
+    },
+    {
+      "playerId": "gavaskar",
+      "name": "Sunil Gavaskar",
+      "country": "India",
+      "era": "1980s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 12,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "curly",
+      "hairColour": "grey",
+      "facialHair": "stubble",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "kohli",
+      "name": "Virat Kohli",
+      "country": "India",
+      "era": "2010s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 13,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "long",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "dravid",
+      "name": "Rahul Dravid",
+      "country": "India",
+      "era": "2000s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 14,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "cap",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "sehwag",
+      "name": "Virender Sehwag",
+      "country": "India",
+      "era": "2000s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 15,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "short",
+      "hairColour": "grey",
+      "facialHair": "beard",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "rohit",
+      "name": "Rohit Sharma",
+      "country": "India",
+      "era": "2010s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 16,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "short",
+      "hairColour": "blond",
+      "facialHair": "beard",
+      "build": "slight",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "kapil",
+      "name": "Kapil Dev",
+      "country": "India",
+      "era": "1980s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 17,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "bald",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "slight",
+      "headgear": "none"
+    },
+    {
+      "playerId": "dhoni",
+      "name": "MS Dhoni",
+      "country": "India",
+      "era": "2000s",
+      "role": "keeper",
+      "sheet": "portraits",
+      "cell": {
+        "column": 18,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "curly",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "kumble",
+      "name": "Anil Kumble",
+      "country": "India",
+      "era": "1990s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 19,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "bald",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "ashwin",
+      "name": "Ravichandran Ashwin",
+      "country": "India",
+      "era": "2010s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 20,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "curly",
+      "hairColour": "black",
+      "facialHair": "stubble",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "bumrah",
+      "name": "Jasprit Bumrah",
+      "country": "India",
+      "era": "2020s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 21,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "bald",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "shami",
+      "name": "Mohammed Shami",
+      "country": "India",
+      "era": "2010s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 22,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "short",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "jadeja",
+      "name": "Ravindra Jadeja",
+      "country": "India",
+      "era": "2010s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 23,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "short",
+      "hairColour": "grey",
+      "facialHair": "none",
+      "build": "slight",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "pant",
+      "name": "Rishabh Pant",
+      "country": "India",
+      "era": "2020s",
+      "role": "keeper",
+      "sheet": "portraits",
+      "cell": {
+        "column": 24,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "cap",
+      "hairColour": "dark-brown",
+      "facialHair": "stubble",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "gill",
+      "name": "Shubman Gill",
+      "country": "India",
+      "era": "2020s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 25,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "cap",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "jaiswal",
+      "name": "Yashasvi Jaiswal",
+      "country": "India",
+      "era": "2020s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 26,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "short",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "suryakumar",
+      "name": "Suryakumar Yadav",
+      "country": "India",
+      "era": "2020s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 27,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "curly",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "hardik",
+      "name": "Hardik Pandya",
+      "country": "India",
+      "era": "2020s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 28,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "cap",
+      "hairColour": "grey",
+      "facialHair": "beard",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "zaheer",
+      "name": "Zaheer Khan",
+      "country": "India",
+      "era": "2000s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 29,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "curly",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "warne",
+      "name": "Shane Warne",
+      "country": "Australia",
+      "era": "1990s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 30,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "bald",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "mcgrath",
+      "name": "Glenn McGrath",
+      "country": "Australia",
+      "era": "1990s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 31,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "long",
+      "hairColour": "auburn",
+      "facialHair": "stubble",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "lillee",
+      "name": "Dennis Lillee",
+      "country": "Australia",
+      "era": "1970s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 32,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "cap",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "ponting",
+      "name": "Ricky Ponting",
+      "country": "Australia",
+      "era": "2000s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 33,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "cap",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "gilchrist",
+      "name": "Adam Gilchrist",
+      "country": "Australia",
+      "era": "2000s",
+      "role": "keeper",
+      "sheet": "portraits",
+      "cell": {
+        "column": 34,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "curly",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "steve-waugh",
+      "name": "Steve Waugh",
+      "country": "Australia",
+      "era": "1990s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 35,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "cap",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "slight",
+      "headgear": "none"
+    },
+    {
+      "playerId": "hayden",
+      "name": "Matthew Hayden",
+      "country": "Australia",
+      "era": "2000s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 36,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "cap",
+      "hairColour": "auburn",
+      "facialHair": "none",
+      "build": "slight",
+      "headgear": "none"
+    },
+    {
+      "playerId": "border",
+      "name": "Allan Border",
+      "country": "Australia",
+      "era": "1980s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 37,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "long",
+      "hairColour": "brown",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "chappell",
+      "name": "Greg Chappell",
+      "country": "Australia",
+      "era": "1970s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 38,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "curly",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "smith",
+      "name": "Steve Smith",
+      "country": "Australia",
+      "era": "2010s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 39,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "long",
+      "hairColour": "auburn",
+      "facialHair": "moustache",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "warner",
+      "name": "David Warner",
+      "country": "Australia",
+      "era": "2010s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 40,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "cap",
+      "hairColour": "dark-brown",
+      "facialHair": "moustache",
+      "build": "slight",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "cummins",
+      "name": "Pat Cummins",
+      "country": "Australia",
+      "era": "2020s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 41,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "short",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "starc",
+      "name": "Mitchell Starc",
+      "country": "Australia",
+      "era": "2010s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 42,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "long",
+      "hairColour": "brown",
+      "facialHair": "stubble",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "hazlewood",
+      "name": "Josh Hazlewood",
+      "country": "Australia",
+      "era": "2010s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 43,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "curly",
+      "hairColour": "blond",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "maxwell",
+      "name": "Glenn Maxwell",
+      "country": "Australia",
+      "era": "2010s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 44,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "long",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "head",
+      "name": "Travis Head",
+      "country": "Australia",
+      "era": "2020s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 45,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "short",
+      "hairColour": "auburn",
+      "facialHair": "beard",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "botham",
+      "name": "Ian Botham",
+      "country": "England",
+      "era": "1980s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 46,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 1,
+      "hairStyle": "long",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "slight",
+      "headgear": "none"
+    },
+    {
+      "playerId": "trueman",
+      "name": "Fred Trueman",
+      "country": "England",
+      "era": "1960s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 47,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 1,
+      "hairStyle": "long",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "knott",
+      "name": "Alan Knott",
+      "country": "England",
+      "era": "1970s",
+      "role": "keeper",
+      "sheet": "portraits",
+      "cell": {
+        "column": 48,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 1,
+      "hairStyle": "bald",
+      "hairColour": "dark-brown",
+      "facialHair": "beard",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "anderson",
+      "name": "James Anderson",
+      "country": "England",
+      "era": "2010s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 49,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 1,
+      "hairStyle": "short",
+      "hairColour": "blond",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "root",
+      "name": "Joe Root",
+      "country": "England",
+      "era": "2010s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 50,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 1,
+      "hairStyle": "long",
+      "hairColour": "black",
+      "facialHair": "stubble",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "stokes",
+      "name": "Ben Stokes",
+      "country": "England",
+      "era": "2010s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 51,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 1,
+      "hairStyle": "bald",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "buttler",
+      "name": "Jos Buttler",
+      "country": "England",
+      "era": "2010s",
+      "role": "keeper",
+      "sheet": "portraits",
+      "cell": {
+        "column": 52,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 1,
+      "hairStyle": "bald",
+      "hairColour": "grey",
+      "facialHair": "beard",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "morgan",
+      "name": "Eoin Morgan",
+      "country": "England",
+      "era": "2010s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 53,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 1,
+      "hairStyle": "bald",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "slight",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "brook",
+      "name": "Harry Brook",
+      "country": "England",
+      "era": "2020s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 54,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 1,
+      "hairStyle": "long",
+      "hairColour": "dark-brown",
+      "facialHair": "none",
+      "build": "slight",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "archer",
+      "name": "Jofra Archer",
+      "country": "England",
+      "era": "2020s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 55,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 1,
+      "hairStyle": "short",
+      "hairColour": "auburn",
+      "facialHair": "moustache",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "moeen",
+      "name": "Moeen Ali",
+      "country": "England",
+      "era": "2010s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 56,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 1,
+      "hairStyle": "short",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "slight",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "kallis",
+      "name": "Jacques Kallis",
+      "country": "South Africa",
+      "era": "2000s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 57,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 3,
+      "hairStyle": "long",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "slight",
+      "headgear": "none"
+    },
+    {
+      "playerId": "steyn",
+      "name": "Dale Steyn",
+      "country": "South Africa",
+      "era": "2000s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 58,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 3,
+      "hairStyle": "curly",
+      "hairColour": "dark-brown",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "pollock",
+      "name": "Shaun Pollock",
+      "country": "South Africa",
+      "era": "1990s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 59,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 3,
+      "hairStyle": "curly",
+      "hairColour": "blond",
+      "facialHair": "beard",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "graeme-smith",
+      "name": "Graeme Smith",
+      "country": "South Africa",
+      "era": "2000s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 60,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 3,
+      "hairStyle": "cap",
+      "hairColour": "brown",
+      "facialHair": "beard",
+      "build": "slight",
+      "headgear": "none"
+    },
+    {
+      "playerId": "de-villiers",
+      "name": "AB de Villiers",
+      "country": "South Africa",
+      "era": "2010s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 61,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 3,
+      "hairStyle": "long",
+      "hairColour": "brown",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "amla",
+      "name": "Hashim Amla",
+      "country": "South Africa",
+      "era": "2010s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 62,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 3,
+      "hairStyle": "curly",
+      "hairColour": "brown",
+      "facialHair": "moustache",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "donald",
+      "name": "Allan Donald",
+      "country": "South Africa",
+      "era": "1990s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 63,
+        "row": 0,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 3,
+      "hairStyle": "cap",
+      "hairColour": "brown",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "rabada",
+      "name": "Kagiso Rabada",
+      "country": "South Africa",
+      "era": "2020s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 0,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 3,
+      "hairStyle": "cap",
+      "hairColour": "grey",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "wasim",
+      "name": "Wasim Akram",
+      "country": "Pakistan",
+      "era": "1990s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 1,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "short",
+      "hairColour": "auburn",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "waqar",
+      "name": "Waqar Younis",
+      "country": "Pakistan",
+      "era": "1990s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 2,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "short",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "imran",
+      "name": "Imran Khan",
+      "country": "Pakistan",
+      "era": "1980s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 3,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "cap",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "slight",
+      "headgear": "none"
+    },
+    {
+      "playerId": "inzamam",
+      "name": "Inzamam-ul-Haq",
+      "country": "Pakistan",
+      "era": "1990s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 4,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "cap",
+      "hairColour": "brown",
+      "facialHair": "beard",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "yousuf",
+      "name": "Mohammad Yousuf",
+      "country": "Pakistan",
+      "era": "2000s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 5,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "short",
+      "hairColour": "dark-brown",
+      "facialHair": "moustache",
+      "build": "slight",
+      "headgear": "none"
+    },
+    {
+      "playerId": "shoaib",
+      "name": "Shoaib Akhtar",
+      "country": "Pakistan",
+      "era": "2000s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 6,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "cap",
+      "hairColour": "blond",
+      "facialHair": "beard",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "babar",
+      "name": "Babar Azam",
+      "country": "Pakistan",
+      "era": "2020s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 7,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "curly",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "shaheen",
+      "name": "Shaheen Afridi",
+      "country": "Pakistan",
+      "era": "2020s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 8,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "short",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "rizwan",
+      "name": "Mohammad Rizwan",
+      "country": "Pakistan",
+      "era": "2020s",
+      "role": "keeper",
+      "sheet": "portraits",
+      "cell": {
+        "column": 9,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "curly",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "murali",
+      "name": "Muttiah Muralitharan",
+      "country": "Sri Lanka",
+      "era": "2000s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 10,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "curly",
+      "hairColour": "brown",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "sangakkara",
+      "name": "Kumar Sangakkara",
+      "country": "Sri Lanka",
+      "era": "2000s",
+      "role": "keeper",
+      "sheet": "portraits",
+      "cell": {
+        "column": 11,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "curly",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "jayawardene",
+      "name": "Mahela Jayawardene",
+      "country": "Sri Lanka",
+      "era": "2000s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 12,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "curly",
+      "hairColour": "brown",
+      "facialHair": "moustache",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "jayasuriya",
+      "name": "Sanath Jayasuriya",
+      "country": "Sri Lanka",
+      "era": "1990s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 13,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "long",
+      "hairColour": "brown",
+      "facialHair": "stubble",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "vaas",
+      "name": "Chaminda Vaas",
+      "country": "Sri Lanka",
+      "era": "2000s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 14,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "cap",
+      "hairColour": "dark-brown",
+      "facialHair": "beard",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "aravinda",
+      "name": "Aravinda de Silva",
+      "country": "Sri Lanka",
+      "era": "1990s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 15,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "long",
+      "hairColour": "grey",
+      "facialHair": "moustache",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "hadlee",
+      "name": "Richard Hadlee",
+      "country": "New Zealand",
+      "era": "1980s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 16,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "long",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "crowe",
+      "name": "Martin Crowe",
+      "country": "New Zealand",
+      "era": "1980s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 17,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "short",
+      "hairColour": "brown",
+      "facialHair": "beard",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "mccullum",
+      "name": "Brendon McCullum",
+      "country": "New Zealand",
+      "era": "2000s",
+      "role": "keeper",
+      "sheet": "portraits",
+      "cell": {
+        "column": 18,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "cap",
+      "hairColour": "grey",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "none"
+    },
+    {
+      "playerId": "williamson",
+      "name": "Kane Williamson",
+      "country": "New Zealand",
+      "era": "2010s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 19,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "cap",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "boult",
+      "name": "Trent Boult",
+      "country": "New Zealand",
+      "era": "2010s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 20,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "short",
+      "hairColour": "blond",
+      "facialHair": "beard",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "taylor",
+      "name": "Ross Taylor",
+      "country": "New Zealand",
+      "era": "2010s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 21,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "cap",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "slight",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "vettori",
+      "name": "Daniel Vettori",
+      "country": "New Zealand",
+      "era": "2000s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 22,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "curly",
+      "hairColour": "blond",
+      "facialHair": "stubble",
+      "build": "slight",
+      "headgear": "none"
+    },
+    {
+      "playerId": "flemming",
+      "name": "Stephen Fleming",
+      "country": "New Zealand",
+      "era": "2000s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 23,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "long",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "shakib",
+      "name": "Shakib Al Hasan",
+      "country": "Bangladesh",
+      "era": "2010s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 24,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "bald",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "mushfiqur",
+      "name": "Mushfiqur Rahim",
+      "country": "Bangladesh",
+      "era": "2010s",
+      "role": "keeper",
+      "sheet": "portraits",
+      "cell": {
+        "column": 25,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "bald",
+      "hairColour": "blond",
+      "facialHair": "moustache",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "tamim",
+      "name": "Tamim Iqbal",
+      "country": "Bangladesh",
+      "era": "2010s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 26,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "long",
+      "hairColour": "dark-brown",
+      "facialHair": "moustache",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "rashid-khan",
+      "name": "Rashid Khan",
+      "country": "Afghanistan",
+      "era": "2020s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 27,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 4,
+      "hairStyle": "short",
+      "hairColour": "blond",
+      "facialHair": "moustache",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "flintoff",
+      "name": "Andrew Flintoff",
+      "country": "England",
+      "era": "2000s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 28,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 1,
+      "hairStyle": "cap",
+      "hairColour": "auburn",
+      "facialHair": "beard",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "pietersen",
+      "name": "Kevin Pietersen",
+      "country": "England",
+      "era": "2000s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 29,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 1,
+      "hairStyle": "cap",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "none"
+    },
+    {
+      "playerId": "cook",
+      "name": "Alastair Cook",
+      "country": "England",
+      "era": "2010s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 30,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 1,
+      "hairStyle": "long",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "gayle",
+      "name": "Chris Gayle",
+      "country": "West Indies",
+      "era": "2010s",
+      "role": "batter",
+      "sheet": "portraits",
+      "cell": {
+        "column": 31,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "bald",
+      "hairColour": "auburn",
+      "facialHair": "moustache",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "pollard",
+      "name": "Kieron Pollard",
+      "country": "West Indies",
+      "era": "2010s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 32,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "short",
+      "hairColour": "blond",
+      "facialHair": "beard",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "holder",
+      "name": "Jason Holder",
+      "country": "West Indies",
+      "era": "2020s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 33,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "cap",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "russell",
+      "name": "Andre Russell",
+      "country": "West Indies",
+      "era": "2010s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 34,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "cap",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "narine",
+      "name": "Sunil Narine",
+      "country": "West Indies",
+      "era": "2010s",
+      "role": "bowler",
+      "sheet": "portraits",
+      "cell": {
+        "column": 35,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 5,
+      "hairStyle": "bald",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "strong",
+      "headgear": "cap"
+    },
+    {
+      "playerId": "jamieson",
+      "name": "Kyle Jamieson",
+      "country": "New Zealand",
+      "era": "2020s",
+      "role": "all-rounder",
+      "sheet": "portraits",
+      "cell": {
+        "column": 36,
+        "row": 1,
+        "width": 32,
+        "height": 48
+      },
+      "skinTone": 2,
+      "hairStyle": "curly",
+      "hairColour": "black",
+      "facialHair": "none",
+      "build": "medium",
+      "headgear": "cap"
+    }
+  ]
+}
