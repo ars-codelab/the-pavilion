@@ -36,7 +36,7 @@ function chipClass(event: BallEvent): string {
   return 'border-pavilion-line text-pavilion-dim';
 }
 
-function StadiumBanner() {
+export function StadiumBanner() {
   return (
     <svg viewBox="0 0 320 120" className="w-full" role="img" aria-label="Cricket ground">
       <defs>

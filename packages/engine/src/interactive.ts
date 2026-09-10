@@ -155,7 +155,7 @@ export class InteractiveMatch {
         ? maxDays * maxOversPerDay * options.spec.ballsPerOver
         : Number.POSITIVE_INFINITY;
 
-    if (options.toss != null) {
+    if (options.toss !== null && options.toss !== undefined) {
       this.tossWinnerId = options.toss.winnerTeamId;
       this.tossDecision = options.toss.decision;
       this.ensureStarted();

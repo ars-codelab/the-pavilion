@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { engineTeam, teams, venues } from '@pavilion/data';
 import {
   FORMATS,
+  InteractiveMatch,
   Random,
   seriesPlayerStats,
   simulateMatch,
@@ -37,6 +38,7 @@ import type { CoachCareer, PlayerCareer } from '@pavilion/career';
 import { deleteSave, listSaves, putSave } from './storage';
 import type { SaveRecord } from './storage';
 import { LiveMatch } from './LiveMatch';
+import { InteractiveMatchView } from './InteractiveMatchView';
 
 const FORMAT_IDS: FormatId[] = ['test', 'odi', 't20'];
 
@@ -147,6 +149,10 @@ export function App() {
     events: BallEvent[];
   } | null>(null);
   const [revealed, setRevealed] = useState(0);
+  const [interactive, setInteractive] = useState<InteractiveMatch | null>(null);
+  const [interactiveTeams, setInteractiveTeams] = useState<{ home: Team; away: Team } | null>(null);
+  const [tick, setTick] = useState(0);
+  const [controlTeam, setControlTeam] = useState<'home' | 'away' | 'neutral'>('home');
   const [series, setSeries] = useState<SeriesResult | null>(null);
   const [season, setSeason] = useState<SeasonResult | null>(null);
   const [careerRole, setCareerRole] = useState<CareerRole>('coach');
@@ -190,6 +196,8 @@ export function App() {
       setMatch(null);
       setSeries(null);
       setLive(null);
+      setInteractive(null);
+      setInteractiveTeams(null);
       setScenes([]);
       return;
     }
@@ -245,6 +253,8 @@ export function App() {
       setMatch(null);
       setSeries(null);
       setLive(null);
+      setInteractive(null);
+      setInteractiveTeams(null);
       setScenes([]);
       return;
     }
@@ -252,6 +262,17 @@ export function App() {
     const home = engineTeam(homeId);
     const away = engineTeam(awayId);
     if (mode === 'match') {
+      const userTeamId = controlTeam === 'home' ? home.id : controlTeam === 'away' ? away.id : null;
+      const session = new InteractiveMatch(random, {
+        spec: FORMATS[format],
+        home,
+        away,
+        userTeamId,
+        conditions: { venue },
+      });
+      setInteractive(session);
+      setInteractiveTeams({ home, away });
+      setTick((value) => value + 1);
       const events: BallEvent[] = [];
       const result = simulateMatch(random, {
         spec: FORMATS[format],
@@ -278,6 +299,8 @@ export function App() {
       setMatch(null);
       setSeason(null);
       setLive(null);
+      setInteractive(null);
+      setInteractiveTeams(null);
       setScenes([]);
     }
   }
@@ -353,8 +376,9 @@ export function App() {
   const currentPlayers = useMemo(() => {
     if (match !== null) return playersFor(match.home, match.away);
     if (series !== null) return playersFor(series.home, series.away);
+    if (interactiveTeams !== null) return playersFor(interactiveTeams.home, interactiveTeams.away);
     return new Map<string, Player>();
-  }, [match, series]);
+  }, [match, series, interactiveTeams]);
   const nameOf = (id: string): string => currentPlayers.get(id)?.surname ?? id;
 
   return (
@@ -398,6 +422,25 @@ export function App() {
               </button>
             ))}
           </div>
+
+          {mode === 'match' && (
+            <div className="mb-3 flex flex-wrap items-center gap-2">
+              <span className="text-xs text-pavilion-dim">You control</span>
+              {(['home', 'away', 'neutral'] as const).map((side) => (
+                <button
+                  key={side}
+                  onClick={() => setControlTeam(side)}
+                  className={`border px-3 py-1 text-xs uppercase tracking-widest ${
+                    controlTeam === side
+                      ? 'border-pavilion-accent text-pavilion-accent'
+                      : 'border-pavilion-line text-pavilion-dim'
+                  }`}
+                >
+                  {side}
+                </button>
+              ))}
+            </div>
+          )}
 
           {mode === 'career' && (
             <div className="mb-3 flex flex-wrap items-center gap-2">
@@ -514,7 +557,7 @@ export function App() {
             </button>
             <button
               onClick={() => void save()}
-              disabled={!hasResult}
+              disabled={!hasResult || interactive !== null}
               className="border-2 border-pavilion-line px-4 py-3 text-xs uppercase tracking-widest text-pavilion-dim disabled:opacity-40"
             >
               Save
@@ -522,33 +565,49 @@ export function App() {
           </div>
         </section>
 
-        {match !== null && scenes[0] !== undefined && (
-          <ScenePlayer scene={scenes[0]} title="Pre-match" />
-        )}
-        {mode === 'match' && live !== null && revealed < live.events.length ? (
-          <LiveMatch
-            result={live.result}
-            home={live.home}
-            away={live.away}
-            venueName={live.venueName}
-            events={live.events}
-            revealed={revealed}
-            onReveal={setRevealed}
+        {mode === 'match' && interactive !== null && interactiveTeams !== null ? (
+          <InteractiveMatchView
+            key={tick}
+            session={interactive}
+            homeId={interactiveTeams.home.id}
+            awayId={interactiveTeams.away.id}
+            homeName={interactiveTeams.home.name}
+            awayName={interactiveTeams.away.name}
+            venueName={venue?.name ?? 'the ground'}
             nameOf={nameOf}
+            onChange={() => setTick((value) => value + 1)}
           />
         ) : (
           <>
-            {match !== null && <MatchView match={match} nameOf={nameOf} />}
-            {match !== null &&
-              scenes
-                .slice(1)
-                .map((scene) => (
-                  <ScenePlayer
-                    key={scene.id}
-                    scene={scene}
-                    title={scene.id.startsWith('interview') ? 'Press conference' : 'Post-match'}
-                  />
-                ))}
+            {match !== null && scenes[0] !== undefined && (
+              <ScenePlayer scene={scenes[0]} title="Pre-match" />
+            )}
+            {mode === 'match' && live !== null && revealed < live.events.length ? (
+              <LiveMatch
+                result={live.result}
+                home={live.home}
+                away={live.away}
+                venueName={live.venueName}
+                events={live.events}
+                revealed={revealed}
+                onReveal={setRevealed}
+                nameOf={nameOf}
+              />
+            ) : (
+              <>
+                {match !== null && <MatchView match={match} nameOf={nameOf} />}
+                {match !== null &&
+                  scenes
+                    .slice(1)
+                    .map((scene) => (
+                      <ScenePlayer
+                        key={scene.id}
+                        scene={scene}
+                        title={scene.id.startsWith('interview') ? 'Press conference' : 'Post-match'}
+                      />
+                    ))}
+              </>
+            )}
           </>
         )}
         {series !== null && <SeriesView series={series} nameOf={nameOf} />}
