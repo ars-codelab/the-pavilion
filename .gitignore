@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Test / coverage
+coverage/
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+
+# Env
+.env
+.env.local
+
+# Capacitor native shells (generated)
+android/
+ios/
+
+# Local data (large Cricsheet dumps etc.)
+.cricsheet/
+*.zip

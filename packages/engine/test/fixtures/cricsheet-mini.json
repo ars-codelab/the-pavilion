@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "data_version": "1.0.0",
+    "created": "2024-01-01",
+    "revision": 1
+  },
+  "info": {
+    "balls_per_over": 6,
+    "dates": ["2024-01-01"],
+    "match_type": "Test",
+    "teams": ["Alpha", "Bravo"],
+    "venue": "The Pavilion"
+  },
+  "innings": [
+    {
+      "team": "Alpha",
+      "overs": [
+        {
+          "over": 0,
+          "deliveries": [
+            {
+              "batter": "P1",
+              "bowler": "Q1",
+              "non_striker": "P2",
+              "runs": { "batter": 0, "extras": 0, "total": 0 }
+            },
+            {
+              "batter": "P1",
+              "bowler": "Q1",
+              "non_striker": "P2",
+              "runs": { "batter": 4, "extras": 0, "total": 4 }
+            },
+            {
+              "batter": "P1",
+              "bowler": "Q1",
+              "non_striker": "P2",
+              "runs": { "batter": 0, "extras": 0, "total": 0 }
+            },
+            {
+              "batter": "P1",
+              "bowler": "Q1",
+              "non_striker": "P2",
+              "runs": { "batter": 1, "extras": 0, "total": 1 }
+            },
+            {
+              "batter": "P1",
+              "bowler": "Q1",
+              "non_striker": "P2",
+              "runs": { "batter": 0, "extras": 1, "total": 1 },
+              "extras": { "wides": 1 }
+            },
+            {
+              "batter": "P1",
+              "bowler": "Q1",
+              "non_striker": "P2",
+              "runs": { "batter": 0, "extras": 0, "total": 0 }
+            },
+            {
+              "batter": "P1",
+              "bowler": "Q1",
+              "non_striker": "P2",
+              "runs": { "batter": 6, "extras": 0, "total": 6 }
+            }
+          ]
+        },
+        {
+          "over": 1,
+          "deliveries": [
+            {
+              "batter": "P1",
+              "bowler": "Q1",
+              "non_striker": "P2",
+              "runs": { "batter": 0, "extras": 0, "total": 0 },
+              "wickets": [{ "player_out": "P1", "kind": "bowled" }]
+            },
+            {
+              "batter": "P3",
+              "bowler": "Q1",
+              "non_striker": "P2",
+              "runs": { "batter": 0, "extras": 0, "total": 0 }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "the-pavilion",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The Pavilion - a deep, offline-first cricket management and career simulation.",
+  "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "verify": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run test"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "fast-check": "^3.23.1",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.16.0",
+    "vitest": "^2.1.8"
+  }
+}
