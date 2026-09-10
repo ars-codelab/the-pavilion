@@ -99,6 +99,10 @@ importers:
         version: 5.4.21(@types/node@22.20.2)
 
   packages/world:
+    dependencies:
+      '@pavilion/engine':
+        specifier: workspace:*
+        version: link:../engine
     devDependencies:
       '@types/node':
         specifier: ^22.9.0

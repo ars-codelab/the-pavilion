@@ -41,6 +41,15 @@ fitness bounds; appearance effects; risk monotonicity; retirement.
 Acceptance: 6-team double round robin = 30 fixtures, each team 10 with 5 home; no team twice
 in a round; odd counts get a bye.
 
+### recruitment
+- `runAuction` (IPL-style): players offered best-first, eligible franchises raise by price
+  steps until one remains, honouring purse, squad size, overseas cap and a per-slot reserve.
+- `signDirect` (BBL-style): validates cap, squad size and overseas limits.
+
+Acceptance: every player assigned at most once; per-franchise spend within purse, squad and
+overseas limits; deterministic for a seed; direct signing rejects over-budget, full-squad and
+over-overseas moves.
+
 ## Tests
 
-`packages/world/test/*` — 19 tests, all pure.
+`packages/world/test/*` — 22 tests, all pure.
