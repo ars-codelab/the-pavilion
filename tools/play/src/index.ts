@@ -76,6 +76,13 @@ result.innings.forEach((innings, index) => {
     `${batting.name} ${label} innings${declared}: ${innings.state.runs}/${innings.state.wickets} ` +
       `(${overs(innings.state.legalBalls)} ov, RR ${runRate})`,
   );
+  for (const batter of innings.state.battingCard) {
+    const notOut = batter.out ? ' ' : '*';
+    console.log(
+      `    ${nameOf(batter.playerId).padEnd(14)} ${String(batter.runs).padStart(3)}${notOut} ` +
+        `(${batter.balls})  4s:${batter.fours} 6s:${batter.sixes}`,
+    );
+  }
   const bowlers = [...innings.bowlers]
     .sort((a, b) => b.wickets - a.wickets || a.runs - b.runs)
     .slice(0, 4)

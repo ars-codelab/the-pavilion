@@ -12,16 +12,18 @@ export function createInningsState(params: CreateInningsParams): InningsState {
   if (first === undefined || second === undefined) {
     throw new Error('batting order must contain at least two players');
   }
+  const openers: [BatterInnings, BatterInnings] = [
+    { playerId: first, runs: 0, balls: 0, fours: 0, sixes: 0, out: false },
+    { playerId: second, runs: 0, balls: 0, fours: 0, sixes: 0, out: false },
+  ];
   return {
     battingTeamId: params.battingTeamId,
     bowlingTeamId: params.bowlingTeamId,
     runs: 0,
     wickets: 0,
     legalBalls: 0,
-    batters: [
-      { playerId: first, runs: 0, balls: 0, fours: 0, sixes: 0, out: false },
-      { playerId: second, runs: 0, balls: 0, fours: 0, sixes: 0, out: false },
-    ],
+    batters: openers,
+    battingCard: openers.map((batter) => ({ ...batter })),
     striker: 0,
     battingOrder: [...params.battingOrder],
     nextBatter: 2,
@@ -56,6 +58,12 @@ export function applyDelivery(
     { ...state.batters[0] },
     { ...state.batters[1] },
   ];
+  const card = state.battingCard.map((entry) => ({ ...entry }));
+  const upsert = (player: BatterInnings): void => {
+    const index = card.findIndex((entry) => entry.playerId === player.playerId);
+    if (index >= 0) card[index] = { ...player };
+    else card.push({ ...player });
+  };
   const striker = state.striker;
   const strikerBat = batters[striker];
 
@@ -75,14 +83,19 @@ export function applyDelivery(
     wickets += 1;
     const outIndex: 0 | 1 = delivery.wicket.batter === 'striker' ? striker : striker === 0 ? 1 : 0;
     batters[outIndex].out = true;
+    upsert(batters[outIndex]);
     const replacementId = state.battingOrder[nextBatter];
     if (replacementId !== undefined) {
       batters[outIndex] = newBatter(replacementId);
+      upsert(batters[outIndex]);
       nextBatter += 1;
       if (delivery.wicket.batter === 'striker') newStriker = outIndex;
     }
     if (wickets >= 10) closed = true;
   }
+
+  upsert(batters[0]);
+  upsert(batters[1]);
 
   const runningRuns = delivery.runsOffBat + (isByeOrLegBye ? extraRuns : 0);
   if (!closed && runningRuns % 2 === 1) {
@@ -101,6 +114,7 @@ export function applyDelivery(
     wickets,
     legalBalls,
     batters,
+    battingCard: card,
     striker: newStriker,
     nextBatter,
     closed,

@@ -110,6 +110,8 @@ export interface InningsState {
   /** Legal deliveries bowled in the innings. */
   legalBalls: number;
   batters: [BatterInnings, BatterInnings];
+  /** Every batter who has batted, in order of arrival, with final figures. */
+  battingCard: BatterInnings[];
   striker: 0 | 1;
   battingOrder: string[];
   nextBatter: number;

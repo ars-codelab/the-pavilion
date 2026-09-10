@@ -147,6 +147,22 @@ describe('applyDelivery laws', () => {
     expect(JSON.stringify(state)).toBe(before);
   });
 
+  it('retains a batting card across wickets', () => {
+    let state = innings();
+    for (let i = 0; i < 3; i++) {
+      state = applyDelivery(state, { runsOffBat: 1, extra: null, wicket: null }, 6);
+    }
+    state = applyDelivery(
+      state,
+      { runsOffBat: 0, extra: null, wicket: { kind: 'bowled', batter: 'striker' } },
+      6,
+    );
+    expect(state.battingCard).toHaveLength(3);
+    expect(state.battingCard.filter((batter) => batter.out)).toHaveLength(1);
+    const batterRuns = state.battingCard.reduce((sum, batter) => sum + batter.runs, 0);
+    expect(batterRuns).toBeLessThanOrEqual(state.runs);
+  });
+
   it('maintains invariants for arbitrary delivery sequences', () => {
     fc.assert(
       fc.property(fc.array(arbDelivery, { maxLength: 120 }), (deliveries) => {
@@ -159,6 +175,9 @@ describe('applyDelivery laws', () => {
           expect(state.legalBalls).toBeGreaterThanOrEqual(0);
           expect(state.batters[0].balls).toBeGreaterThanOrEqual(0);
           expect(state.batters[1].balls).toBeGreaterThanOrEqual(0);
+          expect(state.battingCard.length).toBeGreaterThanOrEqual(2);
+          expect(state.battingCard.length).toBeLessThanOrEqual(11);
+          expect(state.battingCard.filter((batter) => batter.out)).toHaveLength(state.wickets);
           if (state.wickets >= 10) expect(state.closed).toBe(true);
         }
       }),
